@@ -1,4 +1,90 @@
 import {Statement} from './../index';
+import {compareArrays} from './../utils';
+
+/**
+ * @description colon, ":"
+ * @type {number}
+ */
+const colonSymbolCode: number = 58;
+
+/**
+ * @description :20:
+ * @type {Uint8Array}
+ */
+export const transactionReferenceNumberTag: Uint8Array = new Uint8Array([colonSymbolCode, 50, 48, colonSymbolCode]);
+export const transactionReferenceNumberTagLength: number = transactionReferenceNumberTag.length;
+
+/**
+ * @description :21:
+ * @type {Uint8Array}
+ */
+export const relatedReferenceTag: Uint8Array = new Uint8Array([colonSymbolCode, 50, 49, colonSymbolCode]);
+
+/**
+ * @description :25:
+ * @type {Uint8Array}
+ */
+export const accountIdTag: Uint8Array = new Uint8Array([colonSymbolCode, 50, 53, colonSymbolCode]);
+
+/**
+ * @description :28:
+ * @type {Uint8Array}
+ */
+export const accountIdTag1: Uint8Array = new Uint8Array([colonSymbolCode, 50, 56, colonSymbolCode]);
+
+/**
+ * @description :28C:
+ * @type {Uint8Array}
+ */
+export const accountIdTag2: Uint8Array = new Uint8Array([colonSymbolCode, 50, 56, 67, colonSymbolCode]);
+
+/**
+ * @description :60M:
+ * @type {Uint8Array}
+ */
+export const openingBalanceTag1: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 77, colonSymbolCode]);
+
+/**
+ * @description :60F:
+ * @type {Uint8Array}
+ */
+export const openingBalanceTag2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 70, colonSymbolCode]);
+
+/**
+ * @description :61:
+ * @type {Uint8Array}
+ */
+export const statementTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 49, colonSymbolCode]);
+
+/**
+ * @description :62M:
+ * @type {Uint8Array}
+ */
+export const closingBalanceTag1: Uint8Array = new Uint8Array([colonSymbolCode, 54, 50, 77, colonSymbolCode]);
+
+/**
+ * @description :62F:
+ * @type {Uint8Array}
+ */
+export const closingBalanceTag2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 50, 70, colonSymbolCode]);
+
+/**
+ * @description :64:
+ * @type {Uint8Array}
+ */
+export const closingAvailableBalanceTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 52, colonSymbolCode]);
+
+/**
+ * @description :65:
+ * @type {Uint8Array}
+ */
+export const forwardAvailableBalanceTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 53, colonSymbolCode]);
+
+/**
+ * @description :86:
+ * @type {Uint8Array}
+ */
+export const informationTag: Uint8Array = new Uint8Array([colonSymbolCode, 56, 54, colonSymbolCode]);
 
 export function test (data: Uint8Array|Buffer): boolean {
     return true;
@@ -12,19 +98,22 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
     while (i < length) {
         const symbolCode: number = data[i];
 
-        // colon, ":"
-        if (symbolCode === 58) {
-            const nextSymbolCode: number = data[i + 1];
-            const nextAfterNextSymbolCode: number = data[i + 2];
+        if (symbolCode === colonSymbolCode) {
+            const parts = {};
 
-            if (nextSymbolCode === 50 && nextAfterNextSymbolCode === 48) {
-                // '20'
-            } else if (nextSymbolCode === 50 && nextAfterNextSymbolCode === 53) {
-                // '25'
-            } else if (nextSymbolCode === 50 && nextAfterNextSymbolCode === 56) {
-                // '28'
-            } else if (nextSymbolCode === 54 && nextAfterNextSymbolCode === 48) {
-                // '60'
+            parts[transactionReferenceNumberTagLength] = data.slice(i, transactionReferenceNumberTagLength);
+
+            if (compareArrays(parts[transactionReferenceNumberTagLength], transactionReferenceNumberTag)) {
+
+            } else {
+                parts[relatedReferenceTagLength] = (
+                    parts[relatedReferenceTagLength] ||
+                    data.slice(i, relatedReferenceTagLength)
+                );
+
+                if (compareArrays(parts[relatedReferenceTagLength], relatedReferenceTag)) {
+
+                }
             }
         }
 
