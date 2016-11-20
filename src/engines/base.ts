@@ -99,21 +99,14 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
         const symbolCode: number = data[i];
 
         if (symbolCode === colonSymbolCode) {
-            const parts = {};
+            if (compareArrays(
+                transactionReferenceNumberTag,
+                0,
+                data,
+                i,
+                transactionReferenceNumberTagLength
+            )) {
 
-            parts[transactionReferenceNumberTagLength] = data.slice(i, transactionReferenceNumberTagLength);
-
-            if (compareArrays(parts[transactionReferenceNumberTagLength], transactionReferenceNumberTag)) {
-
-            } else {
-                parts[relatedReferenceTagLength] = (
-                    parts[relatedReferenceTagLength] ||
-                    data.slice(i, relatedReferenceTagLength)
-                );
-
-                if (compareArrays(parts[relatedReferenceTagLength], relatedReferenceTag)) {
-
-                }
             }
         }
 

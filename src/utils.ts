@@ -1,8 +1,12 @@
-export function compareArrays (array1: Uint8Array, array2: Uint8Array): boolean {
-    const len: number = array1.length;
-
-    for (let i = 0; i < len; i++) {
-        if (array1[i] !== array2[i]) {
+export function compareArrays (
+    firstArray: Uint8Array|Buffer,
+    firstArrayOffset: number,
+    secondArray: Uint8Array|Buffer,
+    secondArrayOffset: number,
+    size: number
+): boolean {
+    for (let i = 0; i < size; i++) {
+        if (firstArray[firstArrayOffset + i] !== secondArray[secondArrayOffset + i]) {
             return false;
         }
     }
