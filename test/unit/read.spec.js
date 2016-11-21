@@ -12,7 +12,7 @@ describe('#read', () => {
 
                     expect(statements[0]).toEqual({
                         referenceNumber: 'ABN AMRO BANK NV',
-                        accountNumber: '123456789',
+                        accountId: '123456789',
                         number: '12345',
                         openingBalance: {
                             isCredit: true,
@@ -42,7 +42,7 @@ describe('#read', () => {
 
                     expect(statements[1]).toEqual({
                         referenceNumber: 'ABN AMRO BANK NV',
-                        accountNumber: '123456777',
+                        accountId: '123456777',
                         number: '12345',
                         openingBalance: {
                             isCredit: false,

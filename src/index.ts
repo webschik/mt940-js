@@ -1,33 +1,7 @@
-import * as baseEngine from './engines/base';
+import * as parser from './parser';
+import {Statement} from './typings';
 
 const invalidInputMessage :string = 'invalid input';
-
-export interface BalanceInfo {
-    isCredit: boolean;
-    date: string;
-    currency: string;
-    value: number;
-}
-
-export interface Transaction {
-    typeCode: string;
-    isCredit: boolean;
-    currency: string;
-    number: string;
-    description: string;
-    amount: number;
-    valueDate: string;
-    entryDate: string;
-}
-
-export interface Statement {
-    referenceNumber: string;
-    accountNumber: string;
-    number: string;
-    openingBalance: BalanceInfo;
-    closingBalance: BalanceInfo;
-    transactions: Transaction[];
-}
 
 export function read (input: ArrayBuffer|Buffer): Promise<Statement[]> {
     let data: Uint8Array|Buffer;
@@ -40,9 +14,5 @@ export function read (input: ArrayBuffer|Buffer): Promise<Statement[]> {
         return Promise.reject(new Error(invalidInputMessage));
     }
 
-    if (baseEngine.test(data)) {
-        return baseEngine.read(data);
-    }
-
-    return Promise.reject(new Error(invalidInputMessage));
+    return parser.read(data).catch(() => Promise.reject(new Error(invalidInputMessage)));
 }
