@@ -27,7 +27,7 @@ const closingBalanceTag: BalanceInfoTag = {
 
         this.info = openingBalanceTag.getInfo();
         state.statements[state.statementIndex].closingBalance = this.info;
-        state.pos += (isToken1 ? token1Length : token2Length) - 1;
+        state.pos += isToken1 ? token1Length : token2Length;
         return true;
     },
 

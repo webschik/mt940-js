@@ -15,7 +15,7 @@ const accountIdTag: Tag = {
         }
 
         state.statements[state.statementIndex].accountId = '';
-        state.pos += tokenLength - 1;
+        state.pos += tokenLength;
         return true;
     },
 

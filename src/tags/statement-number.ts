@@ -1,5 +1,5 @@
 import {compareArrays} from './../utils';
-import {colonSymbolCode} from './../tokens';
+import {colonSymbolCode, slashSymbolCode} from './../tokens';
 import {Tag, State} from './../typings';
 
 /**
@@ -25,11 +25,19 @@ const statementNumberTag: Tag = {
         }
 
         state.statements[state.statementIndex].number = '';
-        state.pos += (isToken1 ? token1Length : token2Length) - 1;
+        state.pos += isToken1 ? token1Length : token2Length;
         return true;
     },
 
     read (state: State, symbolCode: number) {
+        if (this.isSequenceNumber) {
+            return;
+        }
+
+        if (symbolCode === slashSymbolCode) {
+            return this.isSequenceNumber = true;
+        }
+
         state.statements[state.statementIndex].number += String.fromCharCode(symbolCode);
     }
 };

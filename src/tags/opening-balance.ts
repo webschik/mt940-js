@@ -32,7 +32,7 @@ const openingBalanceTag: BalanceInfoTag = {
 
         this.info = this.getInfo();
         state.statements[state.statementIndex].openingBalance = this.info;
-        state.pos += (isToken1 ? token1Length : token2Length) - 1;
+        state.pos += isToken1 ? token1Length : token2Length;
         return true;
     },
 
@@ -46,7 +46,7 @@ const openingBalanceTag: BalanceInfoTag = {
     },
 
     read (state: State, symbolCode: number) {
-
+        //
     }
 };
 

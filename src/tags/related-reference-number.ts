@@ -15,7 +15,7 @@ const relatedReferenceNumberTag: Tag = {
         }
 
         state.statements[state.statementIndex].relatedReferenceNumber = '';
-        state.pos += tokenLength - 1;
+        state.pos += tokenLength;
         return true;
     },
 

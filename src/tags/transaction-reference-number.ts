@@ -1,6 +1,6 @@
 import {compareArrays} from './../utils';
 import {colonSymbolCode} from './../tokens';
-import {Tag, State} from './../typings';
+import {Tag, State, Statement} from './../typings';
 
 /**
  * @description :20:
@@ -14,8 +14,14 @@ const transactionReferenceNumberTag: Tag = {
             return false;
         }
 
+        state.statementIndex++;
+        state.transactionIndex = -1;
+        state.statements.push({
+           transactions: []
+        } as Statement);
+
         state.statements[state.statementIndex].referenceNumber = '';
-        state.pos += tokenLength - 1;
+        state.pos += tokenLength;
         return true;
     },
 

@@ -9,20 +9,21 @@
     "babel-jest": "^14.1.0",
     "babel-preset-es2015": "^6.13.2",
     "eslint": "^3.5.0",
+    "eslint-config-strict": "^10.0.3",
     "jest-cli": "^15.1.1",
     "ts-loader": "^0.8.2",
     "tslint": "^3.15.1",
     "tslint-eslint-rules": "^1.5.0",
     "typescript": "^2.0.7",
     "typings": "^1.5.0",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.3"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest --no-cache",
+    "test": "npm run lint_test &&./node_modules/.bin/jest --no-cache",
     "typings": "./node_modules/.bin/typings install",
     "lint_src": "./node_modules/.bin/tslint \"src/**/*.*\"",
     "lint_test": "./node_modules/.bin/eslint \"test/unit/**/*.*\"",
-    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/webpack"
+    "build": "npm run lint_src && rm -rf lib && ./node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",
@@ -36,26 +37,18 @@
   "author": "",
   "license": "MIT",
   "jest": {
-    "automock": false,
     "collectCoverage": true,
     "coverageDirectory": "test/coverage",
     "coverageReporters": [
       "cobertura"
     ],
-    "testDirectoryName": "test/unit",
     "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
     "setupTestFrameworkScriptFile": "<rootDir>/jest/config.js",
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/test/e2e/"
     ],
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules"
-    ],
-    "testFileExtensions": [
-      "ts",
-      "tsx"
-    ],
+    "testRegex": "(/test/unit/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",

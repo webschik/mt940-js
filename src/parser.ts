@@ -1,5 +1,9 @@
-import {colonSymbolCode} from './tokens';
-import {Tag, State, Statement, Transaction} from './typings';
+import {
+    colonSymbolCode,
+    newLineSymbolCode,
+    returnSymbolCode
+} from './tokens';
+import {Tag, State, Statement} from './typings';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import relatedReferenceNumber from './tags/related-reference-number';
 import accountId from './tags/account-id';
@@ -28,25 +32,32 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
     const length: number = data.length;
     const state: State = {
         pos: 0,
-        statementIndex: 0,
-        transactionIndex: 0,
+        statementIndex: -1,
+        transactionIndex: -1,
         data,
-        statements: [{
-            transactions: [
-                {} as Transaction
-            ]
-        } as Statement]
+        statements: []
     };
 
     while (state.pos < length) {
         const symbolCode: number = data[state.pos];
+        let skipReading: boolean = false;
 
         if (symbolCode === colonSymbolCode) {
-            tags.some((tag: Tag) => tag.open(state));
+            tags.some((tag: Tag) => {
+                const isTagOpened: boolean = tag.open(state);
+
+                if (isTagOpened) {
+                    state.tag = tag;
+                }
+
+                return isTagOpened;
+            });
+        } else if (symbolCode === newLineSymbolCode || symbolCode === returnSymbolCode) {
+            skipReading = !state.tag || !state.tag.multiline;
         }
 
-        if (state.tag) {
-            state.tag.read(state, symbolCode);
+        if (!skipReading && state.tag) {
+            state.tag.read(state, data[state.pos]);
         }
 
         state.pos++;

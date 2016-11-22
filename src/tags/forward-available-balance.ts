@@ -18,7 +18,7 @@ const forwardAvailableBalance: BalanceInfoTag = {
 
         this.info = openingBalanceTag.getInfo();
         state.statements[state.statementIndex].closingAvailableBalance = this.info;
-        state.pos += tokenLength - 1;
+        state.pos += tokenLength;
         return true;
     },
 
