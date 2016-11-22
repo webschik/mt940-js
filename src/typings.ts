@@ -1,11 +1,13 @@
 export interface Tag {
     open: (state: State) => boolean;
     read: (state: State, symbolCode: number) => any;
+    [key: string]: any;
 }
 
 export interface State {
     pos: number;
     statementIndex: number;
+    transactionIndex: number;
     tag?: Tag;
     data: Uint8Array|Buffer;
     statements: Statement[];
@@ -32,10 +34,12 @@ export interface Transaction {
 
 export interface Statement {
     referenceNumber: string;
-    relatedReferenceNumber: string;
+    relatedReferenceNumber?: string;
     accountId: string;
     number: string;
     openingBalance: BalanceInfo;
-    closingBalance: BalanceInfo;
+    closingBalance?: BalanceInfo;
+    closingAvailableBalance?: BalanceInfo;
+    forwardAvailableBalance?: BalanceInfo;
     transactions: Transaction[];
 }

@@ -1,60 +1,41 @@
 import {colonSymbolCode} from './tokens';
-import {Tag, State, Statement} from './typings';
+import {Tag, State, Statement, Transaction} from './typings';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import relatedReferenceNumber from './tags/related-reference-number';
 import accountId from './tags/account-id';
 import statementNumber from './tags/statement-number';
+import openingBalance from './tags/opening-balance';
+import closingAvailableBalance from './tags/closing-available-balance';
+import forwardAvailableBalance from './tags/forward-available-balance';
+import closingBalance from './tags/closing-balance';
+import informationForAccountOwner from './tags/information-for-account-owner';
+import transactionInfo from './tags/transaction-info';
 
 const tags: Tag[] = [
     transactionReferenceNumber,
     relatedReferenceNumber,
     accountId,
-    statementNumber
+    statementNumber,
+    informationForAccountOwner,
+    openingBalance,
+    closingBalance,
+    closingAvailableBalance,
+    forwardAvailableBalance,
+    transactionInfo
 ];
-
-/**
- * @description :61:
- * @type {Uint8Array}
- */
-export const statementTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 49, colonSymbolCode]);
-
-/**
- * @description :62M:
- * @type {Uint8Array}
- */
-export const closingBalanceTag1: Uint8Array = new Uint8Array([colonSymbolCode, 54, 50, 77, colonSymbolCode]);
-
-/**
- * @description :62F:
- * @type {Uint8Array}
- */
-export const closingBalanceTag2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 50, 70, colonSymbolCode]);
-
-/**
- * @description :64:
- * @type {Uint8Array}
- */
-export const closingAvailableBalanceTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 52, colonSymbolCode]);
-
-/**
- * @description :65:
- * @type {Uint8Array}
- */
-export const forwardAvailableBalanceTag: Uint8Array = new Uint8Array([colonSymbolCode, 54, 53, colonSymbolCode]);
-
-/**
- * @description :86:
- * @type {Uint8Array}
- */
-export const informationTag: Uint8Array = new Uint8Array([colonSymbolCode, 56, 54, colonSymbolCode]);
 
 export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
     const length: number = data.length;
     const state: State = {
         pos: 0,
         statementIndex: 0,
+        transactionIndex: 0,
         data,
-        statements: [{} as Statement]
+        statements: [{
+            transactions: [
+                {} as Transaction
+            ]
+        } as Statement]
     };
 
     while (state.pos < length) {

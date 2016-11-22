@@ -1,6 +1,6 @@
 import {compareArrays} from './../utils';
 import {colonSymbolCode} from './../tokens';
-import {Tag, State} from './../typings';
+import {Tag, State, BalanceInfo} from './../typings';
 
 /**
  * @description :60M:
@@ -15,7 +15,13 @@ const token1: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 77, colonSym
 const token2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 70, colonSymbolCode]);
 const token1Length: number = token1.length;
 const token2Length: number = token2.length;
-const openingBalanceTag: Tag = {
+
+export interface BalanceInfoTag extends Tag {
+    info?: BalanceInfo;
+    getInfo?: () => BalanceInfo;
+}
+
+const openingBalanceTag: BalanceInfoTag = {
     open (state: State): boolean {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
@@ -24,14 +30,19 @@ const openingBalanceTag: Tag = {
             return false;
         }
 
-        state.statements[state.statementIndex].openingBalance = {
+        this.info = this.getInfo();
+        state.statements[state.statementIndex].openingBalance = this.info;
+        state.pos += (isToken1 ? token1Length : token2Length) - 1;
+        return true;
+    },
+
+    getInfo () {
+        return {
             isCredit: false,
             date: '',
             currency: '',
             value: 0
         };
-        state.pos += (isToken1 ? token1Length : token2Length) - 1;
-        return true;
     },
 
     read (state: State, symbolCode: number) {
