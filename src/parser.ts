@@ -43,14 +43,12 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
         let skipReading: boolean = false;
 
         if (symbolCode === colonSymbolCode) {
-            const currentPosition: number = state.pos;
-
             tags.some((tag: Tag) => {
                 const isTagOpened: boolean = tag.open(state);
 
                 if (isTagOpened) {
                     if (state.tag && state.tag.close) {
-                        state.tag.close(state, currentPosition);
+                        state.tag.close(state);
                     }
 
                     state.tag = tag;
@@ -70,7 +68,7 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
     }
 
     if (state.tag && state.tag.close) {
-        state.tag.close(state, state.pos);
+        state.tag.close(state);
     }
 
     return Promise.resolve(state.statements);

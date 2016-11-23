@@ -17,42 +17,13 @@
     },
     "transactions": [
       {
-        "typeCode": "N",
+        "code": "N426",
+        "fundsCode": "",
         "isCredit": true,
         "currency": "EUR",
-        "number": "NONREF",
-        "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/TT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
+        "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/\r\nTT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
         "amount": 5.41,
         "valueDate": "2011-07-14",
-        "entryDate": "2011-07-15"
-      }
-    ]
-  },
-  {
-    "referenceNumber": "ABN AMRO BANK NV",
-    "accountId": "123456777",
-    "number": "12345",
-    "openingBalance": {
-      "isCredit": false,
-      "date": "2011-06-12",
-      "currency": "EUR",
-      "value": 3148.49
-    },
-    "closingBalance": {
-      "isCredit": false,
-      "date": "2011-06-12",
-      "currency": "EUR",
-      "value": 1862.36
-    },
-    "transactions": [
-      {
-        "typeCode": "TRF",
-        "number": "NONREF",
-        "description": "BEA   NR:2XW218   12.06.11/10.36 PARKEREN",
-        "amount": 1,
-        "isCredit": false,
-        "currency": "EUR",
-        "valueDate": "2011-06-14",
         "entryDate": "2011-07-15"
       }
     ]

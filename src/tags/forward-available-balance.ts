@@ -16,13 +16,14 @@ const forwardAvailableBalance: BalanceInfoTag = {
             return false;
         }
 
-        this.info = openingBalanceTag.getInfo();
+        openingBalanceTag.init.call(this);
         state.statements[state.statementIndex].closingAvailableBalance = this.info;
         state.pos += tokenLength;
         return true;
     },
 
-    read: openingBalanceTag.read
+    read: openingBalanceTag.read,
+    close: openingBalanceTag.close
 };
 
 export default forwardAvailableBalance;

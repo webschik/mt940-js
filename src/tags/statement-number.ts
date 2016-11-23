@@ -24,21 +24,28 @@ const statementNumberTag: Tag = {
             return false;
         }
 
-        state.statements[state.statementIndex].number = '';
         state.pos += isToken1 ? token1Length : token2Length;
+        this.start = state.pos;
+        this.end = state.pos;
+        this.foundSlash = false;
         return true;
     },
 
     read (state: State, symbolCode: number) {
-        if (this.isSequenceNumber) {
-            return;
-        }
-
         if (symbolCode === slashSymbolCode) {
-            return this.isSequenceNumber = true;
+            this.foundSlash = true;
         }
 
-        state.statements[state.statementIndex].number += String.fromCharCode(symbolCode);
+        if (!this.foundSlash) {
+            this.end++;
+        }
+    },
+
+    close (state: State) {
+        state.statements[state.statementIndex].number = String.fromCharCode.apply(
+            String,
+            state.data.slice(this.start, this.end)
+        );
     }
 };
 

@@ -16,6 +16,8 @@ function toArrayBuffer (buffer) {
 describe('#read', () => {
     function getTestData (mt940FileName, resultFileName, isBuffer = false) {
         const buffer = fs.readFileSync(`./test/docs/${ mt940FileName }`);
+
+        // eslint-disable-next-line global-require
         const json = require(`./../docs/${ resultFileName }`);
 
         return [isBuffer ? buffer : toArrayBuffer(buffer), json];
@@ -28,6 +30,7 @@ describe('#read', () => {
             resultFileName: 'abn-amro-1.json'
         }
     ].forEach((testCase) => {
+        /* eslint-disable max-nested-callbacks */
         describe(`Provider: ${ testCase.provider }`, () => {
             function test ([data, expectedResult]) {
                 it('should parse the file content', () => {
@@ -57,5 +60,6 @@ describe('#read', () => {
                 test(getTestData(testCase.mt940FileName, testCase.resultFileName, false));
             });
         });
+        /* eslint-enable */
     });
 });

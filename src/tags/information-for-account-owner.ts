@@ -15,16 +15,21 @@ const informationTag: Tag = {
         }
 
         state.pos += tokenLength;
-        this.contentStartPos = state.pos;
+        this.start = state.pos;
+        this.end = state.pos + 1;
         return true;
     },
 
-    close (state: State, currentPosition: number) {
+    read () {
+        this.end++;
+    },
+
+    close (state: State) {
         const statement: Statement = state.statements[state.statementIndex];
 
         statement.transactions[state.transactionIndex].description = String.fromCharCode.apply(
             String,
-            state.data.slice(this.contentStartPos, currentPosition)
+            state.data.slice(this.start, this.end + 1)
         );
     }
 };

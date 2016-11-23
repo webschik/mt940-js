@@ -25,13 +25,14 @@ const closingBalanceTag: BalanceInfoTag = {
             return false;
         }
 
-        this.info = openingBalanceTag.getInfo();
+        openingBalanceTag.init.call(this);
         state.statements[state.statementIndex].closingBalance = this.info;
         state.pos += isToken1 ? token1Length : token2Length;
         return true;
     },
 
-    read: openingBalanceTag.read
+    read: openingBalanceTag.read,
+    close: openingBalanceTag.close
 };
 
 export default closingBalanceTag;

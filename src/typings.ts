@@ -2,7 +2,7 @@ export interface Tag {
     multiline?: boolean;
     open: (state: State) => boolean;
     read?: (state: State, symbolCode: number) => any;
-    close?: (state: State, currentPosition: number) => any;
+    close?: (state: State) => any;
     [key: string]: any;
 }
 
@@ -24,10 +24,10 @@ export interface BalanceInfo {
 }
 
 export interface Transaction {
-    typeCode: string;
+    code: string;
+    fundsCode: string;
     isCredit: boolean;
     currency: string;
-    number: string;
     description: string;
     amount: number;
     valueDate: string;

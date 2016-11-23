@@ -1,19 +1,21 @@
 import {compareArrays} from './../utils';
-import {colonSymbolCode, bigCSymbolCode} from './../tokens';
+import {colonSymbolCode, bigCSymbolCode, dotSymbolCode} from './../tokens';
 import {Tag, State, Statement, Transaction} from './../typings';
 
 const transactionInfoPattern: RegExp = new RegExp([
     '^\\\s*',
-    '(\d{2})', // YY
-    '(\d{2})', // MM
-    '(\d{2})', // DD
-    '(\d{2})?', // MM
-    '(\d{2})?', // DD
+    '([0-9]{2})', // YY
+    '([0-9]{2})', // MM
+    '([0-9]{2})', // DD
+    '([0-9]{2})?', // MM
+    '([0-9]{2})?', // DD
     '(C|D|RD|RC)',
     '([A-Z]{1})?', // Funds code
     '([0-9,\.]+)',// Amount
-    '\\\s*$'
+    '([A-Z0-9]{4})'// Transaction code
 ].join(''));
+const commaPattern: RegExp = /,/;
+const dotSymbol: string = String.fromCharCode(dotSymbolCode);
 
 /**
  * @description :61:
@@ -33,46 +35,62 @@ const transactionInfo: Tag = {
 
         state.transactionIndex++;
         statement.transactions.push({
-            typeCode: '',
+            code: '',
+            fundsCode: '',
             isCredit: false,
             currency: statement.openingBalance.currency,
-            number: '',
             description: '',
             amount: 0,
             valueDate: '',
             entryDate: ''
         });
         state.pos += tokenLength;
-        this.contentStartPos = state.pos;
+        this.start = state.pos;
+        this.end = state.pos + 1;
         return true;
     },
 
-    close (state: State, currentPosition: number) {
-        const {contentStartPos} = this;
+    read () {
+        this.end++;
+    },
+
+    close (state: State) {
         const transaction: Transaction = state.statements[state.statementIndex].transactions[state.transactionIndex];
-        const content: string = String.fromCharCode.apply(String, state.data.slice(contentStartPos, currentPosition));
-        const info: RegExpExecArray = transactionInfoPattern.exec(content);
-
-        if (!info) {
-            return;
-        }
-
+        const content: string = String.fromCharCode.apply(String, state.data.slice(this.start, this.end + 1));
         const [,
             valueDateYear,
             valueDateMonth,
-            valueDateDay,
+            valueDate,
             entryDateMonth,
-            entryDateDay,
-            transactionType
-        ] = info;
+            entryDate,
+            creditMark,
+            fundsCode,
+            amount,
+            code
+        ]: RegExpExecArray = transactionInfoPattern.exec(content);
+
+        if (!valueDateYear) {
+            return;
+        }
+
         const year: string = Number(valueDateYear) > 80 ? `19${ valueDateYear }` : `20${ valueDateYear }`;
 
-        transaction.valueDate = `${ year }-${ valueDateMonth }-${ valueDateDay }`;
-        transaction.entryDate = `${ year }-${ entryDateMonth }-${ entryDateDay }`;
+        transaction.valueDate = `${ year }-${ valueDateMonth }-${ valueDate }`;
+
+        if (entryDateMonth) {
+            transaction.entryDate = `${ year }-${ entryDateMonth }-${ entryDate }`;
+        }
+
         transaction.isCredit = (
-            transactionType.charCodeAt(0) === bigCSymbolCode ||
-            transactionType.charCodeAt(1) === bigCSymbolCode
+            creditMark && (creditMark.charCodeAt(0) === bigCSymbolCode || creditMark.charCodeAt(1) === bigCSymbolCode)
         );
+
+        if (fundsCode) {
+            transaction.fundsCode = fundsCode;
+        }
+
+        transaction.amount = parseFloat(amount.replace(commaPattern, dotSymbol));
+        transaction.code = code;
     }
 };
 

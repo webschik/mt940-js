@@ -15,14 +15,19 @@ const accountIdTag: Tag = {
         }
 
         state.pos += tokenLength;
-        this.contentStartPos = state.pos;
+        this.start = state.pos;
+        this.end = state.pos;
         return true;
     },
 
-    close (state: State, currentPosition: number) {
+    read () {
+        this.end++;
+    },
+
+    close (state: State) {
         state.statements[state.statementIndex].accountId = String.fromCharCode.apply(
             String,
-            state.data.slice(this.contentStartPos, currentPosition)
+            state.data.slice(this.start, this.end)
         );
     }
 };
