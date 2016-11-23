@@ -47,6 +47,10 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
                 const isTagOpened: boolean = tag.open(state);
 
                 if (isTagOpened) {
+                    if (state.tag && state.tag.close) {
+                        state.tag.close(state);
+                    }
+
                     state.tag = tag;
                 }
 

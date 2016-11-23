@@ -1,5 +1,5 @@
 import {compareArrays} from './../utils';
-import {colonSymbolCode} from './../tokens';
+import {colonSymbolCode, zeroSymbolCode, nineSymbolCode, dotSymbolCode, commaSymbolCode} from './../tokens';
 import {Tag, State, BalanceInfo} from './../typings';
 
 /**
@@ -31,6 +31,8 @@ const openingBalanceTag: BalanceInfoTag = {
         }
 
         this.info = this.getInfo();
+        this.contentPos = 0;
+        this.balance = [];
         state.statements[state.statementIndex].openingBalance = this.info;
         state.pos += isToken1 ? token1Length : token2Length;
         return true;
@@ -46,7 +48,44 @@ const openingBalanceTag: BalanceInfoTag = {
     },
 
     read (state: State, symbolCode: number) {
-        //
+        const {info, contentPos} = this;
+
+        if (!contentPos) {
+            // status is 'C'
+            info.isCredit = symbolCode === 67;
+        } else if (contentPos < 7) {
+            // it's a date
+            if (!info.date) {
+                if (symbolCode === nineSymbolCode) {
+                    info.date = '19';
+                } else {
+                    info.date = '20';
+                }
+            }
+
+            info.date += String.fromCharCode(symbolCode);
+
+            if (contentPos === 2 || contentPos === 4) {
+                info.date += '-';
+            }
+        } else if (contentPos < 10) {
+            // it's a currency
+            info.currency += String.fromCharCode(symbolCode);
+        } else {
+            // use always a dot as decimal separator
+            if (symbolCode === commaSymbolCode){
+                symbolCode = dotSymbolCode;
+            }
+
+            // it's a balance
+            this.balance.push(symbolCode);
+        }
+
+        this.contentPos++;
+    },
+
+    close () {
+        this.info.value = parseFloat(String.fromCharCode.apply(String, this.balance));
     }
 };
 
