@@ -43,12 +43,14 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
         let skipReading: boolean = false;
 
         if (symbolCode === colonSymbolCode) {
+            const currentPosition: number = state.pos;
+
             tags.some((tag: Tag) => {
                 const isTagOpened: boolean = tag.open(state);
 
                 if (isTagOpened) {
                     if (state.tag && state.tag.close) {
-                        state.tag.close(state);
+                        state.tag.close(state, currentPosition);
                     }
 
                     state.tag = tag;
@@ -60,11 +62,15 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
             skipReading = !state.tag || !state.tag.multiline;
         }
 
-        if (!skipReading && state.tag) {
+        if (!skipReading && state.tag && state.tag.read) {
             state.tag.read(state, data[state.pos]);
         }
 
         state.pos++;
+    }
+
+    if (state.tag && state.tag.close) {
+        state.tag.close(state, state.pos);
     }
 
     return Promise.resolve(state.statements);

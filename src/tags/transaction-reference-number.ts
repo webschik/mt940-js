@@ -20,13 +20,16 @@ const transactionReferenceNumberTag: Tag = {
            transactions: []
         } as Statement);
 
-        state.statements[state.statementIndex].referenceNumber = '';
         state.pos += tokenLength;
+        this.contentStartPos = state.pos;
         return true;
     },
 
-    read (state: State, symbolCode: number) {
-        state.statements[state.statementIndex].referenceNumber += String.fromCharCode(symbolCode);
+    close (state: State, currentPosition: number) {
+        state.statements[state.statementIndex].referenceNumber = String.fromCharCode.apply(
+            String,
+            state.data.slice(this.contentStartPos, currentPosition)
+        );
     }
 };
 

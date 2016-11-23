@@ -21,33 +21,41 @@ describe('#read', () => {
         return [isBuffer ? buffer : toArrayBuffer(buffer), json];
     }
 
-    describe('ABN AMRO', () => {
-        function test ([data, expectedResult]) {
-            it('should parse the file content', () => {
-                const promise = read(data).then((statements) => {
-                    expect(statements.length).toBe(expectedResult.length);
-
-                    statements.forEach((statement, index) => {
-                        const expectedStatement = expectedResult[index];
-
-                        for (const prop in statement) {
-                            if (statement.hasOwnProperty(prop)) {
-                                expect(statement[prop]).toEqual(expectedStatement[prop]);
-                            }
-                        }
-                    });
-                });
-
-                return promise;
-            });
+    [
+        {
+            provider: 'ABN AMRO',
+            mt940FileName: 'abn-amro-1.STA',
+            resultFileName: 'abn-amro-1.json'
         }
+    ].forEach((testCase) => {
+        describe(`Provider: ${ testCase.provider }`, () => {
+            function test ([data, expectedResult]) {
+                it('should parse the file content', () => {
+                    const promise = read(data).then((statements) => {
+                        expect(statements.length).toBe(expectedResult.length);
 
-        describe('Buffer', () => {
-            test(getTestData('abn-amro-1.STA', 'abn-amro-1.json', true));
-        });
+                        statements.forEach((statement, index) => {
+                            const expectedStatement = expectedResult[index];
 
-        describe('ArrayBuffer', () => {
-            test(getTestData('abn-amro-1.STA', 'abn-amro-1.json', false));
+                            for (const prop in statement) {
+                                if (statement.hasOwnProperty(prop)) {
+                                    expect(statement[prop]).toEqual(expectedStatement[prop]);
+                                }
+                            }
+                        });
+                    });
+
+                    return promise;
+                });
+            }
+
+            describe('Buffer', () => {
+                test(getTestData(testCase.mt940FileName, testCase.resultFileName, true));
+            });
+
+            describe('ArrayBuffer', () => {
+                test(getTestData(testCase.mt940FileName, testCase.resultFileName, false));
+            });
         });
     });
 });

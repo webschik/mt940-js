@@ -1,5 +1,5 @@
 import {compareArrays} from './../utils';
-import {colonSymbolCode, zeroSymbolCode, nineSymbolCode, dotSymbolCode, commaSymbolCode} from './../tokens';
+import {colonSymbolCode, bigCSymbolCode, nineSymbolCode, dotSymbolCode, commaSymbolCode} from './../tokens';
 import {Tag, State, BalanceInfo} from './../typings';
 
 /**
@@ -19,6 +19,7 @@ const token2Length: number = token2.length;
 export interface BalanceInfoTag extends Tag {
     info?: BalanceInfo;
     getInfo?: () => BalanceInfo;
+    collectDate?: (currentValue: string, symbolCode: number, dateContentPos: number) => string;
 }
 
 const openingBalanceTag: BalanceInfoTag = {
@@ -47,37 +48,50 @@ const openingBalanceTag: BalanceInfoTag = {
         };
     },
 
+    /**
+     * @description Collect date and convert it from YYMMDD to YYYY-MM-DD
+     * @param {string} currentValue
+     * @param {number} symbolCode
+     * @param {number} dateContentPos
+     * @returns {string}
+     */
+    collectDate (currentValue: string, symbolCode: number, dateContentPos: number): string {
+        if (!currentValue) {
+            if (symbolCode === nineSymbolCode) {
+                currentValue = '19';
+            } else {
+                currentValue = '20';
+            }
+        }
+
+        currentValue += String.fromCharCode(symbolCode);
+
+        if (dateContentPos === 1 || dateContentPos === 3) {
+            currentValue += '-';
+        }
+
+        return currentValue;
+    },
+
     read (state: State, symbolCode: number) {
         const {info, contentPos} = this;
 
         if (!contentPos) {
             // status is 'C'
-            info.isCredit = symbolCode === 67;
+            info.isCredit = symbolCode === bigCSymbolCode;
         } else if (contentPos < 7) {
             // it's a date
-            if (!info.date) {
-                if (symbolCode === nineSymbolCode) {
-                    info.date = '19';
-                } else {
-                    info.date = '20';
-                }
-            }
-
-            info.date += String.fromCharCode(symbolCode);
-
-            if (contentPos === 2 || contentPos === 4) {
-                info.date += '-';
-            }
+            info.date = this.collectDate(info.date, symbolCode, contentPos - 1);
         } else if (contentPos < 10) {
             // it's a currency
             info.currency += String.fromCharCode(symbolCode);
         } else {
+            // it's a balance
             // use always a dot as decimal separator
             if (symbolCode === commaSymbolCode){
                 symbolCode = dotSymbolCode;
             }
 
-            // it's a balance
             this.balance.push(symbolCode);
         }
 

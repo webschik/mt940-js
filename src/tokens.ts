@@ -45,3 +45,9 @@ export const dotSymbolCode: number = 46;
  * @type {number}
  */
 export const commaSymbolCode: number = 44;
+
+/**
+ * @description "C"
+ * @type {number}
+ */
+export const bigCSymbolCode: number = 67;

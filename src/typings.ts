@@ -1,8 +1,8 @@
 export interface Tag {
     multiline?: boolean;
     open: (state: State) => boolean;
-    read: (state: State, symbolCode: number) => any;
-    close?: (state: State) => any;
+    read?: (state: State, symbolCode: number) => any;
+    close?: (state: State, currentPosition: number) => any;
     [key: string]: any;
 }
 

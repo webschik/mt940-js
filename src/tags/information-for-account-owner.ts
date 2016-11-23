@@ -1,6 +1,6 @@
 import {compareArrays} from './../utils';
 import {colonSymbolCode} from './../tokens';
-import {Tag, State, Statement, Transaction} from './../typings';
+import {Tag, State, Statement} from './../typings';
 
 /**
  * @description :86:
@@ -14,19 +14,18 @@ const informationTag: Tag = {
             return false;
         }
 
-        const statement: Statement = state.statements[state.statementIndex];
-        const transaction: Transaction = statement.transactions[state.transactionIndex];
-
-        transaction.description = '';
         state.pos += tokenLength;
+        this.contentStartPos = state.pos;
         return true;
     },
 
-    read (state: State, symbolCode: number) {
+    close (state: State, currentPosition: number) {
         const statement: Statement = state.statements[state.statementIndex];
-        const transaction: Transaction = statement.transactions[state.transactionIndex];
 
-        transaction.description += String.fromCharCode(symbolCode);
+        statement.transactions[state.transactionIndex].description = String.fromCharCode.apply(
+            String,
+            state.data.slice(this.contentStartPos, currentPosition)
+        );
     }
 };
 
