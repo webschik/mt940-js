@@ -40,3 +40,5 @@ typings
 DS_Store
 jest
 test
+/.travis.yml
+/.coveralls.yml

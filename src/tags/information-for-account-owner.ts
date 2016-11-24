@@ -30,7 +30,7 @@ const informationTag: Tag = {
         statement.transactions[state.transactionIndex].description = String.fromCharCode.apply(
             String,
             state.data.slice(this.start, this.end + 1)
-        );
+        ).trim();
     }
 };
 
