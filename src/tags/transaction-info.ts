@@ -23,14 +23,16 @@ const dotSymbol: string = String.fromCharCode(dotSymbolCode);
  */
 export const token: Uint8Array = new Uint8Array([colonSymbolCode, 54, 49, colonSymbolCode]);
 const tokenLength: number = token.length;
-const transactionInfo: Tag = {
-    multiline: true,
-
-    open (state: State): boolean {
+const transactionInfoTag: Tag = {
+    readToken (state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
-            return false;
+            return 0;
         }
 
+        return state.pos + tokenLength;
+    },
+
+    open (state: State) {
         const statement: Statement = state.statements[state.statementIndex];
 
         state.transactionIndex++;
@@ -44,19 +46,14 @@ const transactionInfo: Tag = {
             valueDate: '',
             entryDate: ''
         });
-        state.pos += tokenLength;
-        this.start = state.pos;
-        this.end = state.pos + 1;
-        return true;
-    },
-
-    read () {
-        this.end++;
     },
 
     close (state: State) {
         const transaction: Transaction = state.statements[state.statementIndex].transactions[state.transactionIndex];
-        const content: string = String.fromCharCode.apply(String, state.data.slice(this.start, this.end + 1));
+        const content: string = String.fromCharCode.apply(
+            String,
+            state.data.slice(state.tagContentStart, state.tagContentEnd)
+        );
         const [,
             valueDateYear,
             valueDateMonth,
@@ -67,7 +64,7 @@ const transactionInfo: Tag = {
             fundsCode,
             amount,
             code
-        ]: RegExpExecArray = transactionInfoPattern.exec(content);
+        ]: RegExpExecArray = (transactionInfoPattern.exec(content) || []) as RegExpExecArray;
 
         if (!valueDateYear) {
             return;
@@ -94,4 +91,4 @@ const transactionInfo: Tag = {
     }
 };
 
-export default transactionInfo;
+export default transactionInfoTag;

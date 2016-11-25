@@ -17,21 +17,20 @@ export const token2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 50, 70, c
 const token1Length: number = token1.length;
 const token2Length: number = token2.length;
 const closingBalanceTag: BalanceInfoTag = {
-    open (state: State): boolean {
+    readToken (state: State) {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
 
         if (!isToken1 && !isToken2) {
-            return false;
+            return 0;
         }
 
         openingBalanceTag.init.call(this);
         state.statements[state.statementIndex].closingBalance = this.info;
-        state.pos += isToken1 ? token1Length : token2Length;
-        return true;
+        return state.pos + (isToken1 ? token1Length : token2Length);
     },
 
-    read: openingBalanceTag.read,
+    readContent: openingBalanceTag.readContent,
     close: openingBalanceTag.close
 };
 

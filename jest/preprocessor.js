@@ -7,8 +7,7 @@ module.exports = {
             return tsc.transpile(
                 src,
                 {
-                    module: tsc.ModuleKind.CommonJS,
-                    inlineSourceMap: true
+                    module: tsc.ModuleKind.CommonJS
                 },
                 path,
                 []

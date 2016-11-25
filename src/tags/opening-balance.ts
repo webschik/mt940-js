@@ -22,18 +22,17 @@ export interface BalanceInfoTag extends Tag {
 }
 
 const openingBalanceTag: BalanceInfoTag = {
-    open (state: State): boolean {
+    readToken (state: State) {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
 
         if (!isToken1 && !isToken2) {
-            return false;
+            return 0;
         }
 
         this.init();
         state.statements[state.statementIndex].openingBalance = this.info;
-        state.pos += isToken1 ? token1Length : token2Length;
-        return true;
+        return state.pos + (isToken1 ? token1Length : token2Length);
     },
 
     init () {
@@ -47,7 +46,7 @@ const openingBalanceTag: BalanceInfoTag = {
         this.balance = [];
     },
 
-    read (state: State, symbolCode: number) {
+    readContent (state: State, symbolCode: number) {
         const {info, contentPos} = this;
 
         if (!contentPos) {

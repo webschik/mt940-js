@@ -11,18 +11,17 @@ export const token: Uint8Array = new Uint8Array([colonSymbolCode, 54, 52, colonS
 
 const tokenLength: number = token.length;
 const closingAvailableBalance: BalanceInfoTag = {
-    open (state: State): boolean {
+    readToken (state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
-            return false;
+            return 0;
         }
 
         openingBalanceTag.init.call(this);
         state.statements[state.statementIndex].closingAvailableBalance = this.info;
-        state.pos += tokenLength - 1;
-        return true;
+        return state.pos + tokenLength;
     },
 
-    read: openingBalanceTag.read,
+    readContent: openingBalanceTag.readContent,
     close: openingBalanceTag.close
 };
 

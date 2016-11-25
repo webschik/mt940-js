@@ -15,23 +15,21 @@ function toArrayBuffer (buffer) {
 
 describe('#read', () => {
     function getTestData (mt940FileName, resultFileName, isBuffer = false) {
-        const buffer = fs.readFileSync(`./test/docs/${ mt940FileName }`);
+        const buffer = fs.readFileSync(`./test/cases/${ mt940FileName }`);
 
         // eslint-disable-next-line global-require
-        const json = require(`./../docs/${ resultFileName }`);
+        const json = require(`./../cases/${ resultFileName }`);
 
         return [isBuffer ? buffer : toArrayBuffer(buffer), json];
     }
 
     [
-        {
-            provider: 'ABN AMRO',
-            mt940FileName: 'abn-amro-1.STA',
-            resultFileName: 'abn-amro-1.json'
-        }
-    ].forEach((testCase) => {
+        ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
+        ['ING', 'ing-1.mta', 'ing-1.json'],
+        ['BASE', 'base-1.mta', 'base-1.json']
+    ].forEach(([provider, mt940FileName, resultFileName]) => {
         /* eslint-disable max-nested-callbacks */
-        describe(`Provider: ${ testCase.provider }`, () => {
+        describe(`Provider: ${ provider }`, () => {
             function test ([data, expectedResult]) {
                 it('should parse the file content', () => {
                     const promise = read(data).then((statements) => {
@@ -53,11 +51,11 @@ describe('#read', () => {
             }
 
             describe('Buffer', () => {
-                test(getTestData(testCase.mt940FileName, testCase.resultFileName, true));
+                test(getTestData(mt940FileName, resultFileName, true));
             });
 
             describe('ArrayBuffer', () => {
-                test(getTestData(testCase.mt940FileName, testCase.resultFileName, false));
+                test(getTestData(mt940FileName, resultFileName, false));
             });
         });
         /* eslint-enable */

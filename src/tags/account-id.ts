@@ -9,25 +9,18 @@ import {Tag, State} from './../typings';
 const token: Uint8Array = new Uint8Array([colonSymbolCode, 50, 53, colonSymbolCode]);
 const tokenLength: number = token.length;
 const accountIdTag: Tag = {
-    open (state: State): boolean {
+    readToken (state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
-            return false;
+            return 0;
         }
 
-        state.pos += tokenLength;
-        this.start = state.pos;
-        this.end = state.pos;
-        return true;
-    },
-
-    read () {
-        this.end++;
+        return state.pos + tokenLength;
     },
 
     close (state: State) {
         state.statements[state.statementIndex].accountId = String.fromCharCode.apply(
             String,
-            state.data.slice(this.start, this.end)
+            state.data.slice(state.tagContentStart, state.tagContentEnd)
         );
     }
 };

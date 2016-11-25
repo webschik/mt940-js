@@ -1,7 +1,8 @@
 export interface Tag {
     multiline?: boolean;
-    open: (state: State) => boolean;
-    read?: (state: State, symbolCode: number) => any;
+    open?: (state: State) => any;
+    readContent?: (state: State, symbolCode: number) => any;
+    readToken: (state: State) => number;
     close?: (state: State) => any;
     [key: string]: any;
 }
@@ -11,6 +12,8 @@ export interface State {
     statementIndex: number;
     transactionIndex: number;
     tag?: Tag;
+    tagContentStart?: number;
+    tagContentEnd?: number;
     data: Uint8Array|Buffer;
     statements: Statement[];
     [key: string]: any;

@@ -27,6 +27,13 @@ const tags: Tag[] = [
     forwardAvailableBalance,
     transactionInfo
 ];
+const tagsCount: number = tags.length;
+
+function closeCurrentTag (state: State) {
+    if (state.tag && state.tag.close) {
+        state.tag.close(state);
+    }
+}
 
 export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
     const length: number = data.length;
@@ -42,34 +49,41 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
         const symbolCode: number = data[state.pos];
         let skipReading: boolean = false;
 
-        if (symbolCode === colonSymbolCode) {
-            tags.some((tag: Tag) => {
-                const isTagOpened: boolean = tag.open(state);
+        // check if it's a tag
+        if (symbolCode === colonSymbolCode && (state.pos === 0 || data[state.pos - 1] === newLineSymbolCode)) {
+            for (let i = 0; i < tagsCount; i++) {
+                const tag: Tag = tags[i];
+                const newPos: number = tag.readToken(state);
 
-                if (isTagOpened) {
-                    if (state.tag && state.tag.close) {
-                        state.tag.close(state);
-                    }
-
+                if (newPos) {
+                    closeCurrentTag(state);
+                    state.pos = newPos;
+                    state.tagContentStart = newPos;
+                    state.tagContentEnd = newPos;
                     state.tag = tag;
-                }
 
-                return isTagOpened;
-            });
+                    if (state.tag.open) {
+                        state.tag.open(state);
+                    }
+                    break;
+                }
+            }
         } else if (symbolCode === newLineSymbolCode || symbolCode === returnSymbolCode) {
             skipReading = !state.tag || !state.tag.multiline;
         }
 
-        if (!skipReading && state.tag && state.tag.read) {
-            state.tag.read(state, data[state.pos]);
+        if (!skipReading && state.tag) {
+            state.tagContentEnd++;
+
+            if (state.tag.readContent) {
+                state.tag.readContent(state, data[state.pos]);
+            }
         }
 
         state.pos++;
     }
 
-    if (state.tag && state.tag.close) {
-        state.tag.close(state);
-    }
+    closeCurrentTag(state);
 
     return Promise.resolve(state.statements);
 }

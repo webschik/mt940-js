@@ -9,25 +9,18 @@ import {Tag, State} from './../typings';
 const token: Uint8Array = new Uint8Array([colonSymbolCode, 50, 49, colonSymbolCode]);
 const tokenLength: number = token.length;
 const relatedReferenceNumberTag: Tag = {
-    open (state: State): boolean {
+    readToken (state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
-            return false;
+            return 0;
         }
 
-        state.pos += tokenLength;
-        this.start = state.pos;
-        this.end = state.pos + 1;
-        return true;
-    },
-
-    read () {
-        this.end++;
+        return state.pos + tokenLength;
     },
 
     close (state: State) {
         state.statements[state.statementIndex].relatedReferenceNumber = String.fromCharCode.apply(
             String,
-            state.data.slice(this.start, this.end + 1)
+            state.data.slice(state.tagContentStart, state.tagContentEnd)
         );
     }
 };
