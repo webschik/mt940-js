@@ -42,7 +42,7 @@ export interface Statement {
     relatedReferenceNumber?: string;
     accountId: string;
     number: string;
-    openingBalance: BalanceInfo;
+    openingBalance?: BalanceInfo;
     closingBalance?: BalanceInfo;
     closingAvailableBalance?: BalanceInfo;
     forwardAvailableBalance?: BalanceInfo;
