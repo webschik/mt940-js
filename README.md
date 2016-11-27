@@ -10,7 +10,7 @@
 ### API
 #### read(buffer)
 * `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
-* returns `Promise` with list of [Statement](src/typings.ts#40).
+* returns `Promise` with list of [Statement](src/typings.ts#L40).
 
 ### Node.js environment
 ````js
