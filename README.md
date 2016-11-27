@@ -10,7 +10,7 @@
 ### API
 #### read(buffer)
 * `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
-* returns `Promise` with list of [Statement](#src/typings.ts#40).
+* returns `Promise` with list of [Statement](src/typings.ts#40).
 
 ### Node.js environment
 ````js
@@ -75,6 +75,7 @@ Coming soon
 ### JS
 * [Buffer](https://nodejs.org/api/buffer.html)
 * [ArrayBuffer](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+
 ### mt940 specification
 * [Societe Generale spec.](https://web.archive.org/web/20160725042101/http://www.societegenerale.rs/fileadmin/template/main/pdf/SGS%20MT940.pdf)
 * [Sepa spec.](http://www.sepaforcorporates.com/swift-for-corporates/account-statement-mt940-file-format-overview/)
