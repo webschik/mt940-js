@@ -42,8 +42,8 @@ export interface Statement {
     relatedReferenceNumber?: string;
     accountId: string;
     number: string;
-    openingBalance?: BalanceInfo;
-    closingBalance?: BalanceInfo;
+    openingBalance: BalanceInfo;
+    closingBalance: BalanceInfo;
     closingAvailableBalance?: BalanceInfo;
     forwardAvailableBalance?: BalanceInfo;
     transactions: Transaction[];

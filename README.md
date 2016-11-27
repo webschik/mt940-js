@@ -7,6 +7,54 @@
 > An isomorphic Javascript library for working with [MT940](#related-links) format
 
 ## Reading
+### API
+#### read(buffer)
+* `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
+* returns `Promise` with list of [Statement](#src/typings.ts#40).
+
+### Node.js environment
+````js
+import * as mt940 from 'mt940-js';
+import fs from 'fs';
+
+fs.readFile('/path/to/your/mt940/file', (error, buffer) => {
+    mt940.read(buffer).then((statements) => {
+        //
+    });
+});
+````
+
+### Browser environment
+#### Reading a local file
+````html
+<input type="file" onchange="onFileSelected(this.files[0])"/>
+````
+````js
+import * as mt940 from 'mt940-js';
+
+function onFileSelected (file) {
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+        mt940.read(reader.result).then((statements) => {
+            // List of the Statements
+        });
+    };
+    reader.readAsArrayBuffer(file);
+}
+````
+#### Reading a remote file
+````js
+import * as mt940 from 'mt940-js';
+
+fetch('/url/to/mt940/file')
+    .then((response) => response.arrayBuffer())
+    .then((buffer) => {
+        mt940.read(buffer).then((statements) => {
+            // List of the Statements
+        });
+    });
+````
 
 ## Writing
 Coming soon
@@ -24,6 +72,10 @@ Coming soon
 * **:86:**
 
 ## Related links
+### JS
+* [Buffer](https://nodejs.org/api/buffer.html)
+* [ArrayBuffer](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+### mt940 specification
 * [Societe Generale spec.](https://web.archive.org/web/20160725042101/http://www.societegenerale.rs/fileadmin/template/main/pdf/SGS%20MT940.pdf)
 * [Sepa spec.](http://www.sepaforcorporates.com/swift-for-corporates/account-statement-mt940-file-format-overview/)
 * [Deutsche Bank spec.](https://deutschebank.nl/nl/docs/MT94042_EN.pdf)
