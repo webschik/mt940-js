@@ -1,0 +1,63 @@
+[
+  {
+    "referenceNumber": "INGEB",
+    "accountId": "0111111111",
+    "number": "100",
+    "openingBalance": {
+      "isCredit": true,
+      "date": "2010-07-22",
+      "currency": "EUR",
+      "value": 44.89
+    },
+    "closingBalance": {
+      "isCredit": false,
+      "date": "2010-07-23",
+      "currency": "EUR",
+      "value": 9945.09
+    },
+    "closingAvailableBalance": {
+      "isCredit": false,
+      "date": "2010-07-23",
+      "currency": "EUR",
+      "value": 9945.09
+    },
+    "forwardAvailableBalance": {
+      "isCredit": false,
+      "date": "2010-07-26",
+      "currency": "EUR",
+      "value": 9945.09
+    },
+    "transactions": [
+      {
+        "code": "N078",
+        "fundsCode": "",
+        "isCredit": true,
+        "currency": "EUR",
+        "description": "0111111111 V. DE JONG KERKSTRAAT 1154 1234 BW\nENSCHEDE BET.KENM. 1004510036716378 3305330802\nAFLOSSINGSTERMIJN 188616 / 1E TERMIJN",
+        "amount": 0.56,
+        "valueDate": "2010-07-22",
+        "entryDate": ""
+      },
+      {
+        "code": "N077",
+        "fundsCode": "",
+        "isCredit": true,
+        "currency": "EUR",
+        "description": "0111111111 CUSTOMER NL SPOEDBETALING\nGE2009120212345\nRE091202-3737 /RFB/NL-FMI-021209 NL-FMI-021209\nVOORSCHOT\nCOMMISSIE",
+        "amount": 10.45,
+        "valueDate": "2010-07-22",
+        "entryDate": ""
+      },
+      {
+        "code": "N029",
+        "fundsCode": "",
+        "isCredit": false,
+        "currency": "EUR",
+        "description": "VERZAMELBETALING BATCH-ID: 012345 TOTAAL 198\nPOSTEN",
+        "amount": 10000.99,
+        "valueDate": "2010-07-22",
+        "entryDate": ""
+      }
+    ]
+  }
+]
