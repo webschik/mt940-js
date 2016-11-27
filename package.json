@@ -1,6 +1,6 @@
 {
   "name": "mt940-js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An isomorphic Javascript library for working with MT940 format",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
