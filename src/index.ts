@@ -1,5 +1,6 @@
 import * as parser from './parser';
 import {Statement} from './typings';
+export {Statement, Transaction, BalanceInfo} from './typings';
 
 const invalidInputMessage: string = 'invalid input';
 
