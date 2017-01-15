@@ -33,7 +33,7 @@
         "fundsCode": "",
         "isCredit": true,
         "currency": "EUR",
-        "description": "0111111111 V. DE JONG KERKSTRAAT 1154 1234 BW\nENSCHEDE BET.KENM. 1004510036716378 3305330802\nAFLOSSINGSTERMIJN 188616 / 1E TERMIJN",
+        "description": "0111111111 V. DE JONG KERKSTRAAT 1154 1234 BWENSCHEDE BET.KENM. 1004510036716378 3305330802AFLOSSINGSTERMIJN 188616 / 1E TERMIJN",
         "amount": 0.56,
         "valueDate": "2010-07-22",
         "entryDate": ""
@@ -43,7 +43,7 @@
         "fundsCode": "",
         "isCredit": true,
         "currency": "EUR",
-        "description": "0111111111 CUSTOMER NL SPOEDBETALING\nGE2009120212345\nRE091202-3737 /RFB/NL-FMI-021209 NL-FMI-021209\nVOORSCHOT\nCOMMISSIE",
+        "description": "0111111111 CUSTOMER NL SPOEDBETALINGGE2009120212345RE091202-3737 /RFB/NL-FMI-021209 NL-FMI-021209VOORSCHOTCOMMISSIE",
         "amount": 10.45,
         "valueDate": "2010-07-22",
         "entryDate": ""
@@ -53,7 +53,7 @@
         "fundsCode": "",
         "isCredit": false,
         "currency": "EUR",
-        "description": "VERZAMELBETALING BATCH-ID: 012345 TOTAAL 198\nPOSTEN",
+        "description": "VERZAMELBETALING BATCH-ID: 012345 TOTAAL 198POSTEN",
         "amount": 10000.99,
         "valueDate": "2010-07-22",
         "entryDate": ""

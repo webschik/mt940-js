@@ -21,7 +21,7 @@
         "fundsCode": "",
         "isCredit": true,
         "currency": "EUR",
-        "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/\nTT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
+        "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/TT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
         "amount": 5.41,
         "valueDate": "2011-07-14",
         "entryDate": "2011-07-15"

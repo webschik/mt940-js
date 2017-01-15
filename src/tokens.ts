@@ -5,7 +5,7 @@
 export const colonSymbolCode: number = 58;
 
 /**
- * @description "\r"
+ * @description "\n"
  * @type {number}
  */
 export const newLineSymbolCode: number = 10;
@@ -51,3 +51,8 @@ export const commaSymbolCode: number = 44;
  * @type {number}
  */
 export const bigCSymbolCode: number = 67;
+/**
+ * @description Space symbol, " "
+ * @type {number}
+ */
+export const spaceSymbolCode: number = 32;
