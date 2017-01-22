@@ -17,9 +17,11 @@
     },
     "transactions": [
       {
+        "id": "c0ed06ccba5f305d5812c7b888b494b2",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 5000.00,
@@ -27,9 +29,11 @@
         "entryDate": "2002-03-20"
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "NCHG",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -37,9 +41,11 @@
         "entryDate": ""
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -47,9 +53,11 @@
         "entryDate": ""
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -57,9 +65,11 @@
         "entryDate": ""
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -67,9 +77,11 @@
         "entryDate": ""
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -96,9 +108,11 @@
     },
     "transactions": [
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -106,9 +120,11 @@
         "entryDate": ""
       },
       {
+        "id": "7dc7c2ee72ecef607d11a448753b541a",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": true,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 20000.00,
@@ -135,9 +151,11 @@
     },
     "transactions": [
       {
+        "id": "c5734756c18f38e18ec6804d1ef7a19f",
         "code": "S051",
         "fundsCode": "M",
         "isCredit": false,
+        "isExpense": true,
         "currency": "DEM",
         "description": "",
         "amount": 50000.00,

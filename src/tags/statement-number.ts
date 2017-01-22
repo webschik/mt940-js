@@ -1,4 +1,4 @@
-import {compareArrays} from './../utils';
+import compareArrays from '../utils/compare-arrays';
 import {colonSymbolCode, slashSymbolCode} from './../tokens';
 import {Tag, State} from './../typings';
 

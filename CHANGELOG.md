@@ -9,3 +9,7 @@
 * Transaction description
     * filter symbols `\r`, `\n`
     * replace multiple spaces by 1 space symbol
+    
+## 0.4.0
+* added `id` property to transaction info
+* added `isExpense` property to transaction info

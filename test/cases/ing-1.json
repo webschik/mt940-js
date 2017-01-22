@@ -29,9 +29,11 @@
     },
     "transactions": [
       {
+        "id": "57bc42eedd977fe2ba74ae184f021a09",
         "code": "N078",
         "fundsCode": "",
         "isCredit": true,
+        "isExpense": true,
         "currency": "EUR",
         "description": "0111111111 V. DE JONG KERKSTRAAT 1154 1234 BWENSCHEDE BET.KENM. 1004510036716378 3305330802AFLOSSINGSTERMIJN 188616 / 1E TERMIJN",
         "amount": 0.56,
@@ -39,9 +41,11 @@
         "entryDate": ""
       },
       {
+        "id": "bd96d856262c34a287688c02a3268fd9",
         "code": "N077",
         "fundsCode": "",
         "isCredit": true,
+        "isExpense": true,
         "currency": "EUR",
         "description": "0111111111 CUSTOMER NL SPOEDBETALINGGE2009120212345RE091202-3737 /RFB/NL-FMI-021209 NL-FMI-021209VOORSCHOTCOMMISSIE",
         "amount": 10.45,
@@ -49,9 +53,11 @@
         "entryDate": ""
       },
       {
+        "id": "92b2dd5bdbf84325950cb889d14509de",
         "code": "N029",
         "fundsCode": "",
         "isCredit": false,
+        "isExpense": true,
         "currency": "EUR",
         "description": "VERZAMELBETALING BATCH-ID: 012345 TOTAAL 198POSTEN",
         "amount": 10000.99,

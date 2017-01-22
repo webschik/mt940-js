@@ -17,9 +17,11 @@
     },
     "transactions": [
       {
+        "id": "61149bfbc36c9228f17dd40856382721",
         "code": "N426",
         "fundsCode": "",
         "isCredit": true,
+        "isExpense": true,
         "currency": "EUR",
         "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/TT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
         "amount": 5.41,

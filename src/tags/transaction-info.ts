@@ -1,4 +1,5 @@
-import {compareArrays} from './../utils';
+import compareArrays from '../utils/compare-arrays';
+import md5 from '../utils/md5';
 import {colonSymbolCode, bigCSymbolCode, dotSymbolCode} from './../tokens';
 import {Tag, State, Statement, Transaction} from './../typings';
 
@@ -16,6 +17,14 @@ const transactionInfoPattern: RegExp = new RegExp([
 ].join(''));
 const commaPattern: RegExp = /,/;
 const dotSymbol: string = String.fromCharCode(dotSymbolCode);
+const incomeTransactionCodes: string[] = [
+    // ABN AMRO bank
+    'N653',
+    'N654',
+
+    // ING bank
+    'N060'
+];
 
 /**
  * @description :61:
@@ -37,9 +46,11 @@ const transactionInfoTag: Tag = {
 
         state.transactionIndex++;
         statement.transactions.push({
+            id: '',
             code: '',
             fundsCode: '',
             isCredit: false,
+            isExpense: true,
             currency: statement.openingBalance.currency,
             description: '',
             amount: 0,
@@ -88,6 +99,10 @@ const transactionInfoTag: Tag = {
 
         transaction.amount = parseFloat(amount.replace(commaPattern, dotSymbol));
         transaction.code = code;
+        transaction.isExpense = incomeTransactionCodes.indexOf(code) === -1;
+        const date: string = transaction.valueDate || transaction.entryDate;
+
+        transaction.id = md5(`${ date }${ transaction.description }${ amount }${ transaction.currency }`);
     }
 };
 

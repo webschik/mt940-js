@@ -1,4 +1,4 @@
-export function compareArrays (
+export default function compareArrays (
     firstArray: Uint8Array|Buffer,
     firstArrayOffset: number,
     secondArray: Uint8Array|Buffer,
