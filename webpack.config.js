@@ -7,6 +7,15 @@ module.exports = {
         libraryTarget: "commonjs2"
     },
 
+    node: {
+        console: false,
+        process: false,
+        global: false,
+        buffer: false,
+        __filename: false,
+        __dirname: false
+    },
+
     root: [
         __dirname
     ],
@@ -19,6 +28,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.tsx?$/,
+                exclude: ['node_modules'],
                 loader: 'ts-loader'
             }
         ]

@@ -13,3 +13,6 @@
 ## 0.4.0
 * added `id` property to transaction info
 * added `isExpense` property to transaction info
+
+## 0.4.1
+* removed Webpack polyfils
