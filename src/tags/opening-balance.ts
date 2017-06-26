@@ -1,6 +1,6 @@
 import compareArrays from '../utils/compare-arrays';
 import {colonSymbolCode, bigCSymbolCode, nineSymbolCode, dotSymbolCode, commaSymbolCode} from './../tokens';
-import {Tag, State, BalanceInfo} from './../typings';
+import {Tag, State, BalanceInfo} from './../index';
 
 /**
  * @description :60M:
@@ -46,7 +46,7 @@ const openingBalanceTag: BalanceInfoTag = {
         this.balance = [];
     },
 
-    readContent (state: State, symbolCode: number) {
+    readContent (_state: State, symbolCode: number) {
         const {info, contentPos} = this;
 
         if (!contentPos) {

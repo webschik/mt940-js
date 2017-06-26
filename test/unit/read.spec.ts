@@ -1,10 +1,12 @@
-import fs from 'fs';
-import {read} from './../../src/index';
+import * as fs from 'fs';
+import {read} from '../../src/index';
 
-function toArrayBuffer (buffer) {
-    const length = buffer.length;
-    const ab = new ArrayBuffer(length);
-    const view = new Uint8Array(ab);
+declare const require: (path: string) => any;
+
+function toArrayBuffer (buffer: Buffer) {
+    const length: number = buffer.length;
+    const ab: ArrayBuffer = new ArrayBuffer(length);
+    const view: Uint8Array = new Uint8Array(ab);
 
     for (let i = 0; i < length; i++) {
         view[i] = buffer[i];
@@ -14,11 +16,9 @@ function toArrayBuffer (buffer) {
 }
 
 describe('#read', () => {
-    function getTestData (mt940FileName, resultFileName, isBuffer = false) {
-        const buffer = fs.readFileSync(`./test/cases/${ mt940FileName }`);
-
-        // eslint-disable-next-line global-require
-        const json = require(`./../cases/${ resultFileName }`);
+    function getTestData (mt940FileName: string, resultFileName: string, isBuffer: boolean): [Buffer|ArrayBuffer, any] {
+        const buffer: Buffer = fs.readFileSync(`./test/cases/${ mt940FileName }`);
+        const json: any[] = require(`./../cases/${ resultFileName }`);
 
         return [isBuffer ? buffer : toArrayBuffer(buffer), json];
     }
@@ -26,13 +26,13 @@ describe('#read', () => {
     [
         ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
         ['ING', 'ing-1.mta', 'ing-1.json'],
-        ['BASE', 'base-1.mta', 'base-1.json']
+        ['BASE-1', 'base-1.mta', 'base-1.json'],
+        ['BASE-2', 'base-2.mta', 'base-2.json']
     ].forEach(([provider, mt940FileName, resultFileName]) => {
-        /* eslint-disable max-nested-callbacks */
         describe(`Provider: ${ provider }`, () => {
-            function test ([data, expectedResult]) {
+            function test ([data, expectedResult]: [Buffer|ArrayBuffer, any]) {
                 it('should parse the file content', () => {
-                    const promise = read(data).then((statements) => {
+                    return read(data).then((statements) => {
                         expect(statements.length).toBe(expectedResult.length);
 
                         statements.forEach((statement, index) => {
@@ -45,8 +45,6 @@ describe('#read', () => {
                             }
                         });
                     });
-
-                    return promise;
                 });
             }
 
@@ -58,6 +56,5 @@ describe('#read', () => {
                 test(getTestData(mt940FileName, resultFileName, false));
             });
         });
-        /* eslint-enable */
     });
 });
