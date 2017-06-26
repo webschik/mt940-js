@@ -1,7 +1,7 @@
 import compareArrays from '../utils/compare-arrays';
 import {colonSymbolCode} from './../tokens';
 import openingBalanceTag, {BalanceInfoTag} from './opening-balance';
-import {State} from './../typings';
+import {State} from './../index';
 
 /**
  * @description :65:

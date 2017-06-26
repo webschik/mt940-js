@@ -1,7 +1,7 @@
 import compareArrays from '../utils/compare-arrays';
 import md5 from '../utils/md5';
-import {colonSymbolCode, bigCSymbolCode, dotSymbolCode} from './../tokens';
-import {Tag, State, Statement, Transaction} from './../typings';
+import {colonSymbolCode, bigCSymbolCode, dotSymbolCode} from '../tokens';
+import {Tag, State, Statement, Transaction} from '../index';
 
 const transactionInfoPattern: RegExp = new RegExp([
     '^\\\s*',
@@ -12,8 +12,10 @@ const transactionInfoPattern: RegExp = new RegExp([
     '([0-9]{2})?', // DD
     '(C|D|RD|RC)',
     '([A-Z]{1})?', // Funds code
-    '([0-9,\.]+)',// Amount
-    '([A-Z0-9]{4})'// Transaction code
+    '([0-9]+[,\.][0-9]+)',// Amount
+    '([A-Z0-9]{4})?',// Transaction code
+    '([A-Z][A-Z0-9]{,15}|NONREF)?', // Customer reference
+    '(\/\/[A-Z0-9]{16})?' // Bank reference
 ].join(''));
 const commaPattern: RegExp = /,/;
 const dotSymbol: string = String.fromCharCode(dotSymbolCode);
@@ -55,7 +57,9 @@ const transactionInfoTag: Tag = {
             description: '',
             amount: 0,
             valueDate: '',
-            entryDate: ''
+            entryDate: '',
+            customerReference: '',
+            bankReference: ''
         });
     },
 
@@ -74,10 +78,13 @@ const transactionInfoTag: Tag = {
             creditMark,
             fundsCode,
             amount,
-            code
+            code,
+            customerReference,
+            bankReference
         ]: RegExpExecArray = (transactionInfoPattern.exec(content) || []) as RegExpExecArray;
 
         if (!valueDateYear) {
+            console.log('----', content);
             return;
         }
 
@@ -95,6 +102,14 @@ const transactionInfoTag: Tag = {
 
         if (fundsCode) {
             transaction.fundsCode = fundsCode;
+        }
+
+        if (customerReference && customerReference !== 'NONREF') {
+            transaction.customerReference = customerReference;
+        }
+
+        if (bankReference && bankReference !== '//NONREF') {
+            transaction.bankReference = bankReference.slice(2);
         }
 
         transaction.amount = parseFloat(amount.replace(commaPattern, dotSymbol));

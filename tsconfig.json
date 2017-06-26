@@ -5,9 +5,12 @@
     "rootDir": "src",
     "declaration": true,
     "noImplicitAny": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "module": "commonjs"
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test"
   ]
 }

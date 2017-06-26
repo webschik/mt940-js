@@ -1,6 +1,6 @@
 import compareArrays from '../utils/compare-arrays';
 import {colonSymbolCode, slashSymbolCode} from './../tokens';
-import {Tag, State} from './../typings';
+import {Tag, State} from './../index';
 
 /**
  * @description :28:

@@ -3,7 +3,7 @@ import {
     newLineSymbolCode,
     returnSymbolCode
 } from './tokens';
-import {Tag, State, Statement} from './typings';
+import {Tag, State, Statement} from './index';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import relatedReferenceNumber from './tags/related-reference-number';
 import accountId from './tags/account-id';

@@ -26,7 +26,9 @@
         "description": "",
         "amount": 5000.00,
         "valueDate": "2002-03-17",
-        "entryDate": "2002-03-20"
+        "entryDate": "2002-03-20",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -38,7 +40,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -50,7 +54,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -62,7 +68,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -74,7 +82,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -86,7 +96,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       }
     ]
   },
@@ -117,7 +129,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       },
       {
         "id": "7dc7c2ee72ecef607d11a448753b541a",
@@ -129,7 +143,9 @@
         "description": "",
         "amount": 20000.00,
         "valueDate": "2002-03-22",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       }
     ]
   },
@@ -160,7 +176,9 @@
         "description": "",
         "amount": 50000.00,
         "valueDate": "2002-03-24",
-        "entryDate": ""
+        "entryDate": "",
+        "customerReference": "",
+        "bankReference": ""
       }
     ]
   }

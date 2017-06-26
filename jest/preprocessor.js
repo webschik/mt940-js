@@ -1,5 +1,4 @@
 const tsc = require('typescript');
-const babel = require('babel-core');
 
 module.exports = {
     process(src, path) {
@@ -12,13 +11,6 @@ module.exports = {
                 path,
                 []
             );
-        }
-
-        if (babel.util.canCompile(path)) {
-            return babel.transform(src, {
-                filename: path,
-                retainLines: true,
-            }).code;
         }
 
         return src;

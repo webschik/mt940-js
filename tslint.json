@@ -111,7 +111,6 @@
     "no-regex-spaces": true,
     "no-unexpected-multiline": true,
     "no-sparse-arrays": true,
-    "no-unreachable": true,
     "use-isnan": true,
     "valid-jsdoc": [
       true,
