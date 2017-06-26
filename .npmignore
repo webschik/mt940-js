@@ -42,3 +42,4 @@ test
 /.travis.yml
 /.coveralls.yml
 npm-shrinkwrap.json
+src
