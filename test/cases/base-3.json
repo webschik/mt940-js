@@ -1,0 +1,35 @@
+[
+  {
+    "referenceNumber": "B6I15MSLX6705AV3",
+    "accountId": "NL95KNAB0011223344",
+    "openingBalance": {
+      "isCredit": true,
+      "date": "2016-09-14",
+      "currency": "EUR",
+      "value": 0
+    },
+    "number": "1",
+    "closingBalance": {
+      "isCredit": true,
+      "date": "2016-09-15",
+      "currency": "EUR",
+      "value": 100
+    },
+    "transactions": [
+      {
+        "id": "53302f828508c9ff2cba4849c8d7b6d6",
+        "code": "N110",
+        "fundsCode": "",
+        "isCredit": true,
+        "isExpense": true,
+        "currency": "EUR",
+        "description": "/TRTP/SEPAOVERBOEKING/BBAN/90000014/BIC/KNABNL2HXXX/NAME/KNAB/REMI/EERSTEOVERBOEKING,BETALINGSKENMERK:0050002417734462,REFERENTIENUMMAB0255499590,14-09-201612:32",
+        "amount": 100,
+        "valueDate": "2016-09-14",
+        "entryDate": "2016-09-14",
+        "customerReference": "NL66RABO01295689",
+        "bankReference": "B6I14PGAHT6R1BM1"
+      }
+    ]
+  }
+]

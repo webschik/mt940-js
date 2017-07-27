@@ -1,3 +1,6 @@
+## 0.5.1
+* fix transactions parsing
+
 ## 0.5.0
 * parse bank and customer references in transaction info, tag :61:
 * refactoring. Build the module only with Typescript, without Webpack

@@ -12,9 +12,9 @@ const transactionInfoPattern: RegExp = new RegExp([
     '([0-9]{2})?', // DD
     '(C|D|RD|RC)',
     '([A-Z]{1})?', // Funds code
-    '([0-9]+[,\.][0-9]+)',// Amount
-    '([A-Z0-9]{4})?',// Transaction code
-    '([A-Z][A-Z0-9]{,15}|NONREF)?', // Customer reference
+    '([0-9]+[,\.][0-9]*)', // Amount
+    '([A-Z0-9]{4})?', // Transaction code
+    '([A-Z][A-Z0-9]{0,15}|NONREF)?', // Customer reference
     '(\/\/[A-Z0-9]{16})?' // Bank reference
 ].join(''));
 const commaPattern: RegExp = /,/;
@@ -84,7 +84,6 @@ const transactionInfoTag: Tag = {
         ]: RegExpExecArray = (transactionInfoPattern.exec(content) || []) as RegExpExecArray;
 
         if (!valueDateYear) {
-            console.log('----', content);
             return;
         }
 
