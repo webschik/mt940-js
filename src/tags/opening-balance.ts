@@ -73,7 +73,7 @@ const openingBalanceTag: BalanceInfoTag = {
         } else {
             // it's a balance
             // use always a dot as decimal separator
-            if (symbolCode === commaSymbolCode){
+            if (symbolCode === commaSymbolCode) {
                 symbolCode = dotSymbolCode;
             }
 

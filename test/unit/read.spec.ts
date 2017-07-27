@@ -27,23 +27,14 @@ describe('#read', () => {
         ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
         ['ING', 'ing-1.mta', 'ing-1.json'],
         ['BASE-1', 'base-1.mta', 'base-1.json'],
-        ['BASE-2', 'base-2.mta', 'base-2.json']
+        ['BASE-2', 'base-2.mta', 'base-2.json'],
+        ['BASE-3', 'base-3.mta', 'base-3.json']
     ].forEach(([provider, mt940FileName, resultFileName]) => {
         describe(`Provider: ${ provider }`, () => {
             function test ([data, expectedResult]: [Buffer|ArrayBuffer, any]) {
                 it('should parse the file content', () => {
                     return read(data).then((statements) => {
-                        expect(statements.length).toBe(expectedResult.length);
-
-                        statements.forEach((statement, index) => {
-                            const expectedStatement = expectedResult[index];
-
-                            for (const prop in statement) {
-                                if (statement.hasOwnProperty(prop)) {
-                                    expect(statement[prop]).toEqual(expectedStatement[prop]);
-                                }
-                            }
-                        });
+                        expect(statements).toEqual(expectedResult);
                     });
                 });
             }
