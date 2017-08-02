@@ -14,7 +14,7 @@ const transactionInfoPattern: RegExp = new RegExp([
     '([A-Z]{1})?', // Funds code
     '([0-9]+[,\.][0-9]*)', // Amount
     '([A-Z0-9]{4})?', // Transaction code
-    '([A-Z][A-Z0-9]{0,15}|NONREF)?', // Customer reference
+    '([^\/\n\r]{0,16}|NONREF)?', // Customer reference
     '(\/\/[A-Z0-9]{16})?' // Bank reference
 ].join(''));
 const commaPattern: RegExp = /,/;
