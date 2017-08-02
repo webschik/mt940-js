@@ -31,5 +31,38 @@
         "bankReference": "B6I14PGAHT6R1BM1"
       }
     ]
+  },
+  {
+    "accountId": "NL95KNAB0255499590",
+    "closingBalance": {
+      "currency": "EUR",
+      "date": "2016-11-22",
+      "isCredit": true,
+      "value": 36.06
+    },
+    "number": "4",
+    "openingBalance": {
+      "currency": "EUR",
+      "date": "2016-11-21",
+      "isCredit": true,
+      "value": 95.02
+    },
+    "referenceNumber": "B6K22MSRIO6BJZZB",
+    "transactions": [
+      {
+        "amount": 58.96,
+        "bankReference": "B6K21PGKGO755NPK",
+        "code": "N200",
+        "currency": "EUR",
+        "customerReference": "20-11-2016 21:31",
+        "description": "/TRTP/IDEAL BETALING/IBAN/NL59ABNA0626226163/BIC/ABNANL2AXXX/NAME/WORLDPAY CUSTOMER PAYMENTS/REMI/7510143342 0030001826916174 VISTAPRINT 9ZTV3-34A29-5N6 000291VISTAPRIN",
+        "entryDate": "2016-11-21",
+        "fundsCode": "",
+        "id": "65e3f648c526acda4d833052365793e1",
+        "isCredit": false,
+        "isExpense": true,
+        "valueDate": "2016-11-21"
+      }
+    ]
   }
 ]
