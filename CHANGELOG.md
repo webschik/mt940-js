@@ -1,3 +1,6 @@
+## 0.5.2
+* fix parsing of customer and bank references
+
 ## 0.5.1
 * fix transactions parsing
 
