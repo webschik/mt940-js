@@ -7,7 +7,7 @@
 
 > An isomorphic Javascript library for working with [MT940](#related-links) format
 
-> # [Changelog](CHANGELOG.md)
+# [Changelog](CHANGELOG.md)
 
 ## Reading
 ### API
