@@ -7,11 +7,39 @@
 
 > An isomorphic Javascript library for working with [MT940](#related-links) format
 
+> # [Changelog](CHANGELOG.md)
+
 ## Reading
 ### API
-#### read(buffer)
+#### read(buffer, options)
 * `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
+* `options` {ReadOptions}
 * returns `Promise` with list of [Statement](src/typings.ts#L40).
+
+##### ReadOptions
+* `getTransactionId(transaction, index)` - a custom generator for transaction id. By default it's:
+```js
+/**
+* @description version 0.5.x
+* @param {Transaction} transaction
+* @param {number} index
+* @returns {string}
+*/
+function getTransactionId (transaction, index) {
+    return md5(`${ date }${ transaction.description }${ amount }${ transaction.currency }`);
+}
+
+
+/**
+* @description version 0.6.x+
+* @param {Transaction} transaction
+* @param {number} index
+* @returns {string}
+*/
+function getTransactionId (transaction, index) {
+    return md5(JSON.strinfigy(transaction));
+}
+```
 
 ### Node.js environment
 ````js

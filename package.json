@@ -1,12 +1,11 @@
 {
   "name": "mt940-js",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "An isomorphic Javascript library for working with MT940 format",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@types/es6-shim": "^0.31.34",
-    "@types/jest": "^20.0.2",
+    "@types/jest": "^21.1.5",
     "@types/node": "^6.0.78",
     "coveralls": "^2.13.1",
     "jest": "^20.0.4",
@@ -19,7 +18,8 @@
     "test": "npm run lint &&./node_modules/.bin/jest --no-cache",
     "coveralls": "npm run test && cat ./test/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "lint": "./node_modules/.bin/tslint \"src/**/*.ts\" \"test/unit/**/*.ts\"",
-    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/tsc"
+    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/tsc",
+    "lock": "npm shrinkwrap --dev"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,12 @@
     "collectCoverage": true,
     "coverageDirectory": "test/coverage",
     "coverageReporters": [
-      "lcov"
+      "lcov",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/*.{ts,tsx}",
+      "src/**/*.{ts,tsx}"
     ],
     "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
     "setupTestFrameworkScriptFile": "<rootDir>/jest/config.js",

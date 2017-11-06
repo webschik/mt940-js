@@ -1,3 +1,4 @@
+import md5 from './utils/md5';
 import * as parser from './parser';
 
 const invalidInputMessage: string = 'invalid input';
@@ -7,7 +8,7 @@ export interface Tag {
     open?: (state: State) => any;
     readContent?: (state: State, symbolCode: number) => any;
     readToken: (state: State) => number;
-    close?: (state: State) => any;
+    close?: (state: State, options?: ReadOptions) => any;
     [key: string]: any;
 }
 
@@ -57,7 +58,11 @@ export interface Statement {
     transactions: Transaction[];
 }
 
-export function read (input: ArrayBuffer|Buffer): Promise<Statement[]> {
+export interface ReadOptions {
+    getTransactionId (transaction: Transaction, index: number): string;
+}
+
+export function read (input: ArrayBuffer|Buffer, options?: ReadOptions): Promise<Statement[]> {
     let data: Uint8Array|Buffer;
 
     if (typeof Buffer !== 'undefined' && input instanceof Buffer) {
@@ -68,5 +73,11 @@ export function read (input: ArrayBuffer|Buffer): Promise<Statement[]> {
         return Promise.reject(new Error(invalidInputMessage)) as any;
     }
 
-    return parser.read(data).catch(() => Promise.reject(new Error(invalidInputMessage)));
+    return parser.read(data, Object.assign({
+        getTransactionId (transaction: Transaction) {
+            return md5(JSON.stringify(transaction));
+        }
+    }, options)).catch(() => {
+        return Promise.reject(new Error(invalidInputMessage));
+    });
 }
