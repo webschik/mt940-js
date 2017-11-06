@@ -16,7 +16,7 @@
 * `options` {ReadOptions}
 * returns `Promise` with list of [Statement](src/typings.ts#L40).
 
-#### ReadOptions
+##### ReadOptions
 * `getTransactionId(transaction, index)` - a custom generator for transaction id. By default it's:
 ```js
 /**
