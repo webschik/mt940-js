@@ -1,7 +1,6 @@
 import compareArrays from '../utils/compare-arrays';
-import md5 from '../utils/md5';
 import {colonSymbolCode, bigCSymbolCode, dotSymbolCode} from '../tokens';
-import {Tag, State, Statement, Transaction} from '../index';
+import {Tag, State, Statement, Transaction, ReadOptions} from '../index';
 
 const transactionInfoPattern: RegExp = new RegExp([
     '^\\\s*',
@@ -63,8 +62,9 @@ const transactionInfoTag: Tag = {
         });
     },
 
-    close (state: State) {
-        const transaction: Transaction = state.statements[state.statementIndex].transactions[state.transactionIndex];
+    close (state: State, options: ReadOptions) {
+        const statement: Statement = state.statements[state.statementIndex];
+        const transaction: Transaction = statement.transactions[state.transactionIndex];
         const content: string = String.fromCharCode.apply(
             String,
             state.data.slice(state.tagContentStart, state.tagContentEnd)
@@ -114,9 +114,7 @@ const transactionInfoTag: Tag = {
         transaction.amount = parseFloat(amount.replace(commaPattern, dotSymbol));
         transaction.code = code;
         transaction.isExpense = incomeTransactionCodes.indexOf(code) === -1;
-        const date: string = transaction.valueDate || transaction.entryDate;
-
-        transaction.id = md5(`${ date }${ transaction.description }${ amount }${ transaction.currency }`);
+        transaction.id = options.getTransactionId(transaction, state.transactionIndex);
     }
 };
 

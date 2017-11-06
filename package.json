@@ -1,12 +1,12 @@
 {
   "name": "mt940-js",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "An isomorphic Javascript library for working with MT940 format",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@types/es6-shim": "^0.31.34",
-    "@types/jest": "^20.0.2",
+    "@types/jest": "^21.1.5",
     "@types/node": "^6.0.78",
     "coveralls": "^2.13.1",
     "jest": "^20.0.4",
@@ -36,7 +36,12 @@
     "collectCoverage": true,
     "coverageDirectory": "test/coverage",
     "coverageReporters": [
-      "lcov"
+      "lcov",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/*.{ts,tsx}",
+      "src/**/*.{ts,tsx}"
     ],
     "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
     "setupTestFrameworkScriptFile": "<rootDir>/jest/config.js",

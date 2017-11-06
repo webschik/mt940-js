@@ -3,7 +3,7 @@ import {
     newLineSymbolCode,
     returnSymbolCode
 } from './tokens';
-import {Tag, State, Statement} from './index';
+import {Tag, State, Statement, ReadOptions} from './index';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import relatedReferenceNumber from './tags/related-reference-number';
 import accountId from './tags/account-id';
@@ -29,13 +29,13 @@ const tags: Tag[] = [
 ];
 const tagsCount: number = tags.length;
 
-function closeCurrentTag (state: State) {
+function closeCurrentTag (state: State, options: ReadOptions) {
     if (state.tag && state.tag.close) {
-        state.tag.close(state);
+        state.tag.close(state, options);
     }
 }
 
-export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
+export function read (data: Uint8Array|Buffer, options: ReadOptions): Promise<Statement[]> {
     const length: number = data.length;
     const state: State = {
         pos: 0,
@@ -56,7 +56,7 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
                 const newPos: number = tag.readToken(state);
 
                 if (newPos) {
-                    closeCurrentTag(state);
+                    closeCurrentTag(state, options);
                     state.pos = newPos;
                     state.tagContentStart = newPos;
                     state.tagContentEnd = newPos;
@@ -83,7 +83,7 @@ export function read (data: Uint8Array|Buffer): Promise<Statement[]> {
         state.pos++;
     }
 
-    closeCurrentTag(state);
+    closeCurrentTag(state, options);
 
     return Promise.resolve(state.statements);
 }

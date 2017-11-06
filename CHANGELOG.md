@@ -1,3 +1,6 @@
+## 0.6.0
+* **Breaking change**: [new transaction id generator](README.md#readoptions)
+
 ## 0.5.2
 * fix parsing of customer and bank references
 
