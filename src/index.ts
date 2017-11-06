@@ -73,11 +73,11 @@ export function read (input: ArrayBuffer|Buffer, options?: ReadOptions): Promise
         return Promise.reject(new Error(invalidInputMessage)) as any;
     }
 
-    return parser.read(data, Object.assign({}, options, {
+    return parser.read(data, Object.assign({
         getTransactionId (transaction: Transaction) {
             return md5(JSON.stringify(transaction));
         }
-    })).catch(() => {
+    }, options)).catch(() => {
         return Promise.reject(new Error(invalidInputMessage));
     });
 }
