@@ -19,7 +19,8 @@
     "test": "npm run lint &&./node_modules/.bin/jest --no-cache",
     "coveralls": "npm run test && cat ./test/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
     "lint": "./node_modules/.bin/tslint \"src/**/*.ts\" \"test/unit/**/*.ts\"",
-    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/tsc"
+    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/tsc",
+    "lock": "npm shrinkwrap --dev"
   },
   "repository": {
     "type": "git",
