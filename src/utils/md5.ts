@@ -1,5 +1,6 @@
 // MD5 implementation http://www.myersdaily.org/joseph/javascript/md5.js
-function md5Cycle(x: number[], k: number[]) {
+/* tslint:disable no-bitwise */
+function md5Cycle (x: number[], k: number[]) {
     let [a, b, c, d]: number[] = x;
 
     a = ff(a, b, c, d, k[0], 7, -680876936);
@@ -76,28 +77,28 @@ function md5Cycle(x: number[], k: number[]) {
     x[3] = add32(d, x[3]);
 }
 
-function cmn(q: number, a: number, b: number, x: number, s: number, t: number): number {
+function cmn (q: number, a: number, b: number, x: number, s: number, t: number): number {
     a = add32(add32(a, q), add32(x, t));
     return add32((a << s) | (a >>> (32 - s)), b);
 }
 
-function ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+function ff (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
     return cmn((b & c) | ((~b) & d), a, b, x, s, t);
 }
 
-function gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+function gg (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
     return cmn((b & d) | (c & (~d)), a, b, x, s, t);
 }
 
-function hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+function hh (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
     return cmn(b ^ c ^ d, a, b, x, s, t);
 }
 
-function ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+function ii (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
     return cmn(c ^ (b | (~d)), a, b, x, s, t);
 }
 
-function md51(input: string): number[] {
+function md51 (input: string): number[] {
     const state: number[] = [1732584193, -271733879, -1732584194, 271733878];
     const tail: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let len = input.length;
@@ -142,7 +143,7 @@ function md51(input: string): number[] {
  * providing access to strings as preformed UTF-8
  * 8-bit unsigned value arrays.
  */
-function getMd5Blocks(str: string): number[] {
+function getMd5Blocks (str: string): number[] {
     const result: number[] = [];
 
     /* Andy King said do it this way. */
@@ -160,7 +161,7 @@ function getMd5Blocks(str: string): number[] {
 
 const hexChars: string[] = '0123456789abcdef'.split('');
 
-function rhex(value: number): string {
+function rhex (value: number): string {
     let result: string = '';
 
     for (let j = 0; j < 4; j++) {
@@ -170,7 +171,7 @@ function rhex(value: number): string {
     return result;
 }
 
-function hex(state: number[]): string {
+function hex (state: number[]): string {
     let result: string = '';
     const {length} = state;
 
@@ -181,10 +182,12 @@ function hex(state: number[]): string {
     return result;
 }
 
-function add32(a: number, b: number): number {
+function add32 (a: number, b: number): number {
     return (a + b) & 0xFFFFFFFF;
 }
 
-export default function md5(input: string): string {
+export default function md5 (input: string): string {
     return hex(md51(input));
 }
+
+/* tslint:enable */

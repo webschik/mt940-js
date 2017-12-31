@@ -10,8 +10,8 @@
     "coveralls": "^2.13.1",
     "jest": "^20.0.4",
     "jest-cli": "^15.1.1",
-    "tslint": "^5.4.3",
-    "tslint-eslint-rules": "^4.1.1",
+    "tslint": "^5.8.0",
+    "tslint-config-webschik": "^1.0.0",
     "typescript": "^2.3.4"
   },
   "scripts": {
