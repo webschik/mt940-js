@@ -14,7 +14,7 @@
 #### read(buffer, options)
 * `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
 * `options` {ReadOptions}
-* returns `Promise` with list of [Statement](src/typings.ts#L40).
+* returns array of [Statement](src/typings.ts#L40).
 
 ##### ReadOptions
 * `getTransactionId(transaction, index)` - a custom generator for transaction id. By default it's:

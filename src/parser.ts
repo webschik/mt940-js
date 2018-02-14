@@ -35,7 +35,7 @@ function closeCurrentTag (state: State, options: ReadOptions) {
     }
 }
 
-export function read (data: Uint8Array|Buffer, options: ReadOptions): Promise<Statement[]> {
+export function read (data: Uint8Array|Buffer, options: ReadOptions): Statement[] {
     const length: number = data.length;
     const state: State = {
         pos: 0,
@@ -85,5 +85,5 @@ export function read (data: Uint8Array|Buffer, options: ReadOptions): Promise<St
 
     closeCurrentTag(state, options);
 
-    return Promise.resolve(state.statements);
+    return state.statements;
 }
