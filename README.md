@@ -1,5 +1,5 @@
 # mt940-js
-[![Build Status](https://secure.travis-ci.org/webschik/mt940-js.png?branch=master)](https://travis-ci.org/webschik/mt940-js)
+[![Build Status](https://travis-ci.org/webschik/mt940-js.svg?branch=master)](https://travis-ci.org/webschik/mt940-js)
 [![npm](https://img.shields.io/npm/dm/mt940-js.svg)](https://www.npmjs.com/package/mt940-js)
 [![npm](https://img.shields.io/npm/v/mt940-js.svg)](https://www.npmjs.com/package/mt940-js)
 [![npm](https://img.shields.io/npm/l/mt940-js.svg)](https://www.npmjs.com/package/mt940-js)
@@ -14,7 +14,7 @@
 #### read(buffer, options)
 * `buffer` {Buffer|ArrayBuffer} - income buffer that contains data of mt940 file.
 * `options` {ReadOptions}
-* returns `Promise` with list of [Statement](src/typings.ts#L40).
+* returns `Promise` with list of [Statement](src/index.ts#L49).
 
 ##### ReadOptions
 * `getTransactionId(transaction, index)` - a custom generator for transaction id. By default it's:
