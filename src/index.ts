@@ -56,6 +56,7 @@ export interface Statement {
     closingAvailableBalance?: BalanceInfo;
     forwardAvailableBalance?: BalanceInfo;
     transactions: Transaction[];
+    additionalInformation?: string;
 }
 
 export interface ReadOptions {
