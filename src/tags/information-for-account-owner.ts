@@ -40,12 +40,12 @@ const informationTag: Tag = {
             }
         }
 
-        var informationToAccountOwner = String.fromCharCode.apply(
+        const informationToAccountOwner = String.fromCharCode.apply(
             String,
             description
         ).trim();
 
-        var transactionHasDescription = statement.transactions[state.transactionIndex].description !== '';
+        const transactionHasDescription = statement.transactions[state.transactionIndex].description !== '';
 
         // All :86: fields must be directly preceded by a transaction statement line (:61:),
         // so if the current transaction already has a description, we may assume this is
