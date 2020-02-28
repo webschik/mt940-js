@@ -25,7 +25,8 @@ describe('#read', () => {
 
     [
         ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
-        ['ING', 'ing-1.mta', 'ing-1.json'],
+        ['ING-1', 'ing-1.mta', 'ing-1.json'],
+        ['ING-2', 'ing-2.mta', 'ing-2.json'],
         ['BASE-1', 'base-1.mta', 'base-1.json'],
         ['BASE-2', 'base-2.mta', 'base-2.json'],
         ['BASE-3', 'base-3.mta', 'base-3.json']
