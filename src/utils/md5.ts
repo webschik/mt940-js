@@ -1,6 +1,6 @@
 // MD5 implementation http://www.myersdaily.org/joseph/javascript/md5.js
-/* tslint:disable no-bitwise */
-function md5Cycle (x: number[], k: number[]) {
+/* tslint:disable */
+function md5Cycle(x: number[], k: number[]) {
     let [a, b, c, d]: number[] = x;
 
     a = ff(a, b, c, d, k[0], 7, -680876936);
@@ -77,28 +77,28 @@ function md5Cycle (x: number[], k: number[]) {
     x[3] = add32(d, x[3]);
 }
 
-function cmn (q: number, a: number, b: number, x: number, s: number, t: number): number {
+function cmn(q: number, a: number, b: number, x: number, s: number, t: number): number {
     a = add32(add32(a, q), add32(x, t));
     return add32((a << s) | (a >>> (32 - s)), b);
 }
 
-function ff (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
-    return cmn((b & c) | ((~b) & d), a, b, x, s, t);
+function ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+    return cmn((b & c) | (~b & d), a, b, x, s, t);
 }
 
-function gg (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
-    return cmn((b & d) | (c & (~d)), a, b, x, s, t);
+function gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+    return cmn((b & d) | (c & ~d), a, b, x, s, t);
 }
 
-function hh (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+function hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
     return cmn(b ^ c ^ d, a, b, x, s, t);
 }
 
-function ii (a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
-    return cmn(c ^ (b | (~d)), a, b, x, s, t);
+function ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number): number {
+    return cmn(c ^ (b | ~d), a, b, x, s, t);
 }
 
-function md51 (input: string): number[] {
+function md51(input: string): number[] {
     const state: number[] = [1732584193, -271733879, -1732584194, 271733878];
     const tail: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let len = input.length;
@@ -112,10 +112,10 @@ function md51 (input: string): number[] {
     len = input.length;
 
     for (i = 0; i < len; i++) {
-        tail[i >> 2] |= input.charCodeAt(i) << ((i % 4) << 3);
+        tail[i >> 2] |= input.charCodeAt(i) << (i % 4 << 3);
     }
 
-    tail[i >> 2] |= 0x80 << ((i % 4) << 3);
+    tail[i >> 2] |= 0x80 << (i % 4 << 3);
     if (i > 55) {
         md5Cycle(state, tail);
         for (i = 0; i < 16; i++) {
@@ -143,17 +143,16 @@ function md51 (input: string): number[] {
  * providing access to strings as preformed UTF-8
  * 8-bit unsigned value arrays.
  */
-function getMd5Blocks (str: string): number[] {
+function getMd5Blocks(str: string): number[] {
     const result: number[] = [];
 
     /* Andy King said do it this way. */
     for (let i = 0; i < 64; i += 4) {
-        result[i >> 2] = (
+        result[i >> 2] =
             str.charCodeAt(i) +
             (str.charCodeAt(i + 1) << 8) +
             (str.charCodeAt(i + 2) << 16) +
-            (str.charCodeAt(i + 3) << 24)
-        );
+            (str.charCodeAt(i + 3) << 24);
     }
 
     return result;
@@ -161,17 +160,17 @@ function getMd5Blocks (str: string): number[] {
 
 const hexChars: string[] = '0123456789abcdef'.split('');
 
-function rhex (value: number): string {
+function rhex(value: number): string {
     let result: string = '';
 
     for (let j = 0; j < 4; j++) {
-        result += hexChars[(value >> (j * 8 + 4)) & 0x0F] + hexChars[(value >> (j * 8)) & 0x0F];
+        result += hexChars[(value >> (j * 8 + 4)) & 0x0f] + hexChars[(value >> (j * 8)) & 0x0f];
     }
 
     return result;
 }
 
-function hex (state: number[]): string {
+function hex(state: number[]): string {
     let result: string = '';
     const {length} = state;
 
@@ -182,11 +181,11 @@ function hex (state: number[]): string {
     return result;
 }
 
-function add32 (a: number, b: number): number {
-    return (a + b) & 0xFFFFFFFF;
+function add32(a: number, b: number): number {
+    return (a + b) & 0xffffffff;
 }
 
-export default function md5 (input: string): string {
+export default function md5(input: string): string {
     return hex(md51(input));
 }
 

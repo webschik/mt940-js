@@ -1,9 +1,9 @@
 import * as fs from 'fs';
-import {read} from '../../src/index';
+import {read} from '../../src';
 
 declare const require: (path: string) => any;
 
-function toArrayBuffer (buffer: Buffer) {
+function toArrayBuffer(buffer: Buffer) {
     const length: number = buffer.length;
     const ab: ArrayBuffer = new ArrayBuffer(length);
     const view: Uint8Array = new Uint8Array(ab);
@@ -16,9 +16,13 @@ function toArrayBuffer (buffer: Buffer) {
 }
 
 describe('#read', () => {
-    function getTestData (mt940FileName: string, resultFileName: string, isBuffer: boolean): [Buffer|ArrayBuffer, any] {
-        const buffer: Buffer = fs.readFileSync(`./test/cases/${ mt940FileName }`);
-        const json: any[] = require(`./../cases/${ resultFileName }`);
+    function getTestData(
+        mt940FileName: string,
+        resultFileName: string,
+        isBuffer: boolean
+    ): [Buffer | ArrayBuffer, any] {
+        const buffer: Buffer = fs.readFileSync(`./__tests__/cases/${mt940FileName}`);
+        const json: any[] = require(`./../cases/${resultFileName}`);
 
         return [isBuffer ? buffer : toArrayBuffer(buffer), json];
     }
@@ -31,8 +35,8 @@ describe('#read', () => {
         ['BASE-2', 'base-2.mta', 'base-2.json'],
         ['BASE-3', 'base-3.mta', 'base-3.json']
     ].forEach(([provider, mt940FileName, resultFileName]) => {
-        describe(`Provider: ${ provider }`, () => {
-            function test ([data, expectedResult]: [Buffer|ArrayBuffer, any]) {
+        describe(`Provider: ${provider}`, () => {
+            function test([data, expectedResult]: [Buffer | ArrayBuffer, any]) {
                 it('should parse the file content', () => {
                     return read(data).then((statements) => {
                         expect(statements).toEqual(expectedResult);

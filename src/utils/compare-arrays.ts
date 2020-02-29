@@ -1,7 +1,7 @@
-export default function compareArrays (
-    firstArray: Uint8Array|Buffer,
+export default function compareArrays(
+    firstArray: Uint8Array | Buffer,
     firstArrayOffset: number,
-    secondArray: Uint8Array|Buffer,
+    secondArray: Uint8Array | Buffer,
     secondArrayOffset: number,
     length: number
 ): boolean {

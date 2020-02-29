@@ -1,25 +1,24 @@
 {
   "name": "mt940-js",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "An isomorphic Javascript library for working with MT940 format",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@types/jest": "^21.1.5",
-    "@types/node": "^6.0.78",
-    "coveralls": "^2.13.1",
-    "jest": "^20.0.4",
-    "jest-cli": "^15.1.1",
+    "@types/jest": "^25.1.3",
+    "@types/node": "^13.7.7",
+    "coveralls": "^3.0.9",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
     "tslint": "^5.8.0",
     "tslint-config-webschik": "^1.0.0",
-    "typescript": "^2.3.4"
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "test": "npm run lint &&./node_modules/.bin/jest --no-cache",
-    "coveralls": "npm run test && cat ./test/coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "lint": "./node_modules/.bin/tslint \"src/**/*.ts\" \"test/unit/**/*.ts\"",
-    "build": "npm run lint && rm -rf lib && ./node_modules/.bin/tsc",
-    "lock": "npm shrinkwrap --dev"
+    "test": "jest --collectCoverage && cat ./__tests__/coverage/lcov.info | coveralls",
+    "lint": "tslint \"src/**/*.ts\" \"__tests__/unit/**/*.ts\"",
+    "format": "prettier --write '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
+    "build": "npm run format && npm run lint && rm -rf lib && tsc"
   },
   "repository": {
     "type": "git",
@@ -30,30 +29,7 @@
     "isomorphic",
     "mt940"
   ],
-  "author": "",
+  "author": "webschik",
   "license": "MIT",
-  "jest": {
-    "collectCoverage": true,
-    "coverageDirectory": "test/coverage",
-    "coverageReporters": [
-      "lcov",
-      "html"
-    ],
-    "collectCoverageFrom": [
-      "src/*.{ts,tsx}",
-      "src/**/*.{ts,tsx}"
-    ],
-    "scriptPreprocessor": "<rootDir>/jest/preprocessor.js",
-    "setupTestFrameworkScriptFile": "<rootDir>/jest/config.js",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/test/e2e/"
-    ],
-    "testRegex": "(/test/unit/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ]
-  }
+  "dependencies": {}
 }

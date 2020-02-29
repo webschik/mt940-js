@@ -1,6 +1,7 @@
+import bufferToText from '../utils/buffer-to-text';
 import compareArrays from '../utils/compare-arrays';
-import {colonSymbolCode} from './../tokens';
-import {Tag, State} from './../index';
+import {colonSymbolCode} from '../tokens';
+import {Tag, State, Statement} from '../index';
 
 /**
  * @description :21:
@@ -9,7 +10,7 @@ import {Tag, State} from './../index';
 const token: Uint8Array = new Uint8Array([colonSymbolCode, 50, 49, colonSymbolCode]);
 const tokenLength: number = token.length;
 const relatedReferenceNumberTag: Tag = {
-    readToken (state: State) {
+    readToken(state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
@@ -17,11 +18,14 @@ const relatedReferenceNumberTag: Tag = {
         return state.pos + tokenLength;
     },
 
-    close (state: State) {
-        state.statements[state.statementIndex].relatedReferenceNumber = String.fromCharCode.apply(
-            String,
-            state.data.slice(state.tagContentStart, state.tagContentEnd)
-        );
+    close(state: State) {
+        const statement: Statement | undefined = state.statements[state.statementIndex];
+
+        if (!statement) {
+            return;
+        }
+
+        statement.relatedReferenceNumber = bufferToText(state.data, state.tagContentStart, state.tagContentEnd);
     }
 };
 

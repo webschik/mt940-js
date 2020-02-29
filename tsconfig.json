@@ -3,18 +3,21 @@
     "target": "es5",
     "outDir": "lib",
     "rootDir": "src",
+    "strict": true,
     "declaration": true,
     "noImplicitAny": true,
     "noUnusedParameters": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
     "noUnusedLocals": true,
     "module": "commonjs",
     "lib": [
-      "es2017",
+      "esnext",
       "dom"
     ]
   },
   "exclude": [
     "node_modules",
-    "test"
+    "__tests__"
   ]
 }

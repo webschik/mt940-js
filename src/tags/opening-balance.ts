@@ -1,6 +1,8 @@
+import {State, Statement} from '../index';
+import {bigCSymbolCode, colonSymbolCode, commaSymbolCode, dotSymbolCode, nineSymbolCode} from '../tokens';
+import bufferToText from '../utils/buffer-to-text';
 import compareArrays from '../utils/compare-arrays';
-import {colonSymbolCode, bigCSymbolCode, nineSymbolCode, dotSymbolCode, commaSymbolCode} from './../tokens';
-import {Tag, State, BalanceInfo} from './../index';
+import {BalanceInfoTag} from './balance-info';
 
 /**
  * @description :60M:
@@ -15,14 +17,23 @@ const token1: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 77, colonSym
 const token2: Uint8Array = new Uint8Array([colonSymbolCode, 54, 48, 70, colonSymbolCode]);
 const token1Length: number = token1.length;
 const token2Length: number = token2.length;
-
-export interface BalanceInfoTag extends Tag {
-    info?: BalanceInfo;
-    init?: () => any;
-}
+const getInitialState = (): Pick<BalanceInfoTag, 'info' | 'contentPos' | 'balance'> => {
+    return {
+        info: {
+            isCredit: false,
+            date: '',
+            currency: '',
+            value: 0
+        },
+        contentPos: 0,
+        balance: []
+    };
+};
 
 const openingBalanceTag: BalanceInfoTag = {
-    readToken (state: State) {
+    ...getInitialState(),
+
+    readToken(state: State) {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
 
@@ -31,22 +42,21 @@ const openingBalanceTag: BalanceInfoTag = {
         }
 
         this.init();
-        state.statements[state.statementIndex].openingBalance = this.info;
+        const statement: Statement | undefined = state.statements[state.statementIndex];
+
+        if (!statement) {
+            return 0;
+        }
+
+        statement.openingBalance = this.info;
         return state.pos + (isToken1 ? token1Length : token2Length);
     },
 
-    init () {
-        this.info = {
-            isCredit: false,
-            date: '',
-            currency: '',
-            value: 0
-        };
-        this.contentPos = 0;
-        this.balance = [];
+    init() {
+        Object.assign(this, getInitialState());
     },
 
-    readContent (_state: State, symbolCode: number) {
+    readContent(_state: State, symbolCode: number) {
         const {info, contentPos} = this;
 
         if (!contentPos) {
@@ -83,8 +93,8 @@ const openingBalanceTag: BalanceInfoTag = {
         this.contentPos++;
     },
 
-    close () {
-        this.info.value = parseFloat(String.fromCharCode.apply(String, this.balance));
+    close() {
+        this.info.value = parseFloat(bufferToText(this.balance));
     }
 };
 

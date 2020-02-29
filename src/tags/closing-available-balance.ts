@@ -1,7 +1,8 @@
+import {State, Statement} from '../index';
+import {colonSymbolCode} from '../tokens';
 import compareArrays from '../utils/compare-arrays';
-import {colonSymbolCode} from './../tokens';
-import openingBalanceTag, {BalanceInfoTag} from './opening-balance';
-import {State} from './../index';
+import {BalanceInfoTag} from './balance-info';
+import openingBalanceTag from './opening-balance';
 
 /**
  * @description :64:
@@ -11,18 +12,23 @@ export const token: Uint8Array = new Uint8Array([colonSymbolCode, 54, 52, colonS
 
 const tokenLength: number = token.length;
 const closingAvailableBalance: BalanceInfoTag = {
-    readToken (state: State) {
+    ...openingBalanceTag,
+
+    readToken(state: State) {
         if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
 
-        openingBalanceTag.init.call(this);
-        state.statements[state.statementIndex].closingAvailableBalance = this.info;
-        return state.pos + tokenLength;
-    },
+        this.init();
+        const statement: Statement | undefined = state.statements[state.statementIndex];
 
-    readContent: openingBalanceTag.readContent,
-    close: openingBalanceTag.close
+        if (!statement) {
+            return 0;
+        }
+
+        statement.closingAvailableBalance = this.info;
+        return state.pos + tokenLength;
+    }
 };
 
 export default closingAvailableBalance;

@@ -1,19 +1,15 @@
-import {
-    colonSymbolCode,
-    newLineSymbolCode,
-    returnSymbolCode
-} from './tokens';
-import {Tag, State, Statement, ReadOptions} from './index';
-import transactionReferenceNumber from './tags/transaction-reference-number';
-import relatedReferenceNumber from './tags/related-reference-number';
+import {ReadOptions, State, Statement, Tag} from './index';
 import accountId from './tags/account-id';
-import statementNumber from './tags/statement-number';
-import openingBalance from './tags/opening-balance';
 import closingAvailableBalance from './tags/closing-available-balance';
-import forwardAvailableBalance from './tags/forward-available-balance';
 import closingBalance from './tags/closing-balance';
+import forwardAvailableBalance from './tags/forward-available-balance';
 import informationForAccountOwner from './tags/information-for-account-owner';
+import openingBalance from './tags/opening-balance';
+import relatedReferenceNumber from './tags/related-reference-number';
+import statementNumber from './tags/statement-number';
 import transactionInfo from './tags/transaction-info';
+import transactionReferenceNumber from './tags/transaction-reference-number';
+import {colonSymbolCode, newLineSymbolCode, returnSymbolCode} from './tokens';
 
 const tags: Tag[] = [
     transactionReferenceNumber,
@@ -29,13 +25,13 @@ const tags: Tag[] = [
 ];
 const tagsCount: number = tags.length;
 
-function closeCurrentTag (state: State, options: ReadOptions) {
+function closeCurrentTag(state: State, options: ReadOptions) {
     if (state.tag && state.tag.close) {
         state.tag.close(state, options);
     }
 }
 
-export function read (data: Uint8Array|Buffer, options: ReadOptions): Promise<Statement[]> {
+export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<Statement[]> {
     const length: number = data.length;
     const state: State = {
         pos: 0,
@@ -73,9 +69,11 @@ export function read (data: Uint8Array|Buffer, options: ReadOptions): Promise<St
         }
 
         if (!skipReading && state.tag) {
-            state.tagContentEnd++;
+            if (state.tagContentEnd !== undefined) {
+                state.tagContentEnd++;
+            }
 
-            if (state.tag.readContent) {
+            if (typeof state.tag.readContent === 'function') {
                 state.tag.readContent(state, data[state.pos]);
             }
         }

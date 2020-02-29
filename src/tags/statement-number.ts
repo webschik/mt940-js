@@ -1,6 +1,7 @@
+import {State, Statement, Tag} from '../index';
+import {colonSymbolCode, slashSymbolCode} from '../tokens';
+import bufferToText from '../utils/buffer-to-text';
 import compareArrays from '../utils/compare-arrays';
-import {colonSymbolCode, slashSymbolCode} from './../tokens';
-import {Tag, State} from './../index';
 
 /**
  * @description :28:
@@ -15,8 +16,13 @@ const token1: Uint8Array = new Uint8Array([colonSymbolCode, 50, 56, colonSymbolC
 const token2: Uint8Array = new Uint8Array([colonSymbolCode, 50, 56, 67, colonSymbolCode]);
 const token1Length: number = token1.length;
 const token2Length: number = token2.length;
-const statementNumberTag: Tag = {
-    readToken (state: State) {
+
+interface StatementNumberTag extends Tag {
+    slashPos?: number;
+}
+
+const statementNumberTag: StatementNumberTag = {
+    readToken(state: State) {
         const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
         const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
 
@@ -28,17 +34,20 @@ const statementNumberTag: Tag = {
         return state.pos + (isToken1 ? token1Length : token2Length);
     },
 
-    readContent (state: State, symbolCode: number) {
+    readContent(state: State, symbolCode: number) {
         if (symbolCode === slashSymbolCode) {
             this.slashPos = state.pos;
         }
     },
 
-    close (state: State) {
-        state.statements[state.statementIndex].number = String.fromCharCode.apply(
-            String,
-            state.data.slice(state.tagContentStart, this.slashPos || state.tagContentEnd)
-        );
+    close(state: State) {
+        const statement: Statement | undefined = state.statements[state.statementIndex];
+
+        if (!statement) {
+            return;
+        }
+
+        statement.number = bufferToText(state.data, state.tagContentStart, this.slashPos || state.tagContentEnd);
     }
 };
 
