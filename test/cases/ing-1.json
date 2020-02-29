@@ -3,6 +3,7 @@
     "referenceNumber": "INGEB",
     "accountId": "0111111111",
     "number": "100",
+    "additionalInformation": "D000001C000002D10000,99C11,01ING TESTREKENINGXXX",
     "openingBalance": {
       "isCredit": true,
       "date": "2010-07-22",
