@@ -1,3 +1,8 @@
+## 1.0.0
+* fix transaction description parsing (see https://github.com/webschik/mt940-js/issues/12)
+* updated development tools
+* first major release :)
+
 ## 0.6.0
 * **Breaking change**: [new transaction id generator](README.md#readoptions)
 
@@ -12,7 +17,7 @@
 * refactoring. Build the module only with Typescript, without Webpack
 
 ## 0.4.1
-* removed Webpack polyfils
+* removed Webpack polyfills
     
 ## 0.4.0
 * added `id` property to transaction info
