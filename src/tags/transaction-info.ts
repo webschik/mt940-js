@@ -11,7 +11,7 @@ const transactionInfoPattern: RegExp = new RegExp(
         '([0-9]{2})', // DD
         '([0-9]{2})?', // MM
         '([0-9]{2})?', // DD
-        '(C|D|RD|RC)',
+        '(C|D|RD|RC|EC|ED)',
         '([A-Z]{1})?', // Funds code
         '([0-9]+[,.][0-9]*)', // Amount
         '([A-Z0-9]{4})?', // Transaction code
