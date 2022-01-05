@@ -51,7 +51,7 @@ export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<S
                 const tag: Tag = tags[i];
                 const newPos: number = tag.readToken(state);
 
-                if (newPos) {
+                if (newPos > 0) {
                     closeCurrentTag(state, options);
                     state.pos = newPos;
                     state.tagContentStart = newPos;
