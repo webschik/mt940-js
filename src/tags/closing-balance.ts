@@ -22,8 +22,8 @@ const closingBalanceTag: BalanceInfoTag = {
     ...openingBalanceTag,
 
     readToken(state: State) {
-        const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
-        const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
+        const isToken1: boolean = compareArrays(token1, 0, state.buffer, state.pos, token1Length);
+        const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.buffer, state.pos, token2Length);
 
         if (!isToken1 && !isToken2) {
             return 0;

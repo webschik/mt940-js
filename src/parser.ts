@@ -10,6 +10,8 @@ import statementNumber from './tags/statement-number';
 import transactionInfo from './tags/transaction-info';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import {colonSymbolCode, newLineSymbolCode, returnSymbolCode} from './tokens';
+import {Readable} from 'stream';
+import {createRefreshBuffer} from './utils/create-refresh-buffer';
 
 const tags: Tag[] = [
     transactionReferenceNumber,
@@ -31,33 +33,31 @@ function closeCurrentTag(state: State, options: ReadOptions) {
     }
 }
 
-export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<Statement[]> {
-    const length: number = data.length;
+export async function read(stream: Readable, options: ReadOptions): Promise<Statement[]> {
     const state: State = {
         pos: 0,
         statementIndex: -1,
         transactionIndex: -1,
-        data,
-        statements: []
+        statements: [],
+        buffer: Buffer.from([])
     };
+    const refreshBuffer = createRefreshBuffer(stream, state);
 
-    while (state.pos < length) {
-        const symbolCode: number = data[state.pos];
+    await refreshBuffer();
+    while (state.pos < state.buffer.length) {
+        const symbolCode: number = state.buffer[state.pos];
         let skipReading: boolean = false;
-
         // check if it's a tag
-        if (symbolCode === colonSymbolCode && (state.pos === 0 || data[state.pos - 1] === newLineSymbolCode)) {
+        if (symbolCode === colonSymbolCode && (state.pos === 0 || state.buffer[state.pos - 1] === newLineSymbolCode)) {
             for (let i = 0; i < tagsCount; i++) {
                 const tag: Tag = tags[i];
                 const newPos: number = tag.readToken(state);
-
                 if (newPos > 0) {
                     closeCurrentTag(state, options);
                     state.pos = newPos;
                     state.tagContentStart = newPos;
                     state.tagContentEnd = newPos;
                     state.tag = tag;
-
                     if (state.tag.open) {
                         state.tag.open(state);
                     }
@@ -67,21 +67,18 @@ export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<S
         } else if (symbolCode === newLineSymbolCode || symbolCode === returnSymbolCode) {
             skipReading = !state.tag || !state.tag.multiline;
         }
-
         if (!skipReading && state.tag) {
             if (state.tagContentEnd !== undefined) {
                 state.tagContentEnd++;
             }
-
             if (typeof state.tag.readContent === 'function') {
-                state.tag.readContent(state, data[state.pos]);
+                state.tag.readContent(state, state.buffer[state.pos]);
             }
         }
-
         state.pos++;
+        await refreshBuffer();
     }
-
     closeCurrentTag(state, options);
 
-    return Promise.resolve(state.statements);
+    return state.statements;
 }

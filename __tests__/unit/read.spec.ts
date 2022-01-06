@@ -3,7 +3,6 @@ import {read} from '../../src';
 
 declare const require: (path: string) => any;
 
-
 describe('#read', () => {
     describe.each([
         ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
@@ -24,7 +23,6 @@ describe('#read', () => {
     });
 });
 
-
 function toArrayBuffer(buffer: Buffer) {
     const length: number = buffer.length;
     const ab: ArrayBuffer = new ArrayBuffer(length);
@@ -42,7 +40,7 @@ function getTestData(dataType: 'ReadStream' | 'Buffer' | 'ArrayBuffer', mt940Fil
         case 'Buffer':
             return readFileSync(`./__tests__/cases/${mt940FileName}`);
         case 'ReadStream':
-            return createReadStream(`./__tests__/cases/${mt940FileName}`);
+            return createReadStream(`./__tests__/cases/${mt940FileName}`, {highWaterMark: 32});
         case 'ArrayBuffer':
             return toArrayBuffer(readFileSync(`./__tests__/cases/${mt940FileName}`));
         default: {
