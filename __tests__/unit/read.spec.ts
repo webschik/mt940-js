@@ -40,7 +40,8 @@ function getTestData(dataType: 'ReadStream' | 'Buffer' | 'ArrayBuffer', mt940Fil
         case 'Buffer':
             return readFileSync(`./__tests__/cases/${mt940FileName}`);
         case 'ReadStream':
-            return createReadStream(`./__tests__/cases/${mt940FileName}`, {highWaterMark: 32});
+            // force buffer to reload even on small test cases with highWaterMark
+            return createReadStream(`./__tests__/cases/${mt940FileName}`, {highWaterMark: 4});
         case 'ArrayBuffer':
             return toArrayBuffer(readFileSync(`./__tests__/cases/${mt940FileName}`));
         default: {

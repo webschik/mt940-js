@@ -22,6 +22,7 @@ export interface State {
     tagContentEnd?: number;
     statements: Statement[];
     buffer: Buffer;
+    prevSymbolCode: number;
 }
 
 export interface BalanceInfo {

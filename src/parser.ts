@@ -39,7 +39,8 @@ export async function read(stream: Readable, options: ReadOptions): Promise<Stat
         statementIndex: -1,
         transactionIndex: -1,
         statements: [],
-        buffer: Buffer.from([])
+        buffer: Buffer.from([]),
+        prevSymbolCode: -1
     };
     const refreshBuffer = createRefreshBuffer(stream, state);
 
@@ -48,7 +49,7 @@ export async function read(stream: Readable, options: ReadOptions): Promise<Stat
         const symbolCode: number = state.buffer[state.pos];
         let skipReading: boolean = false;
         // check if it's a tag
-        if (symbolCode === colonSymbolCode && (state.pos === 0 || state.buffer[state.pos - 1] === newLineSymbolCode)) {
+        if (symbolCode === colonSymbolCode && (state.pos === 0 || state.prevSymbolCode === newLineSymbolCode)) {
             for (let i = 0; i < tagsCount; i++) {
                 const tag: Tag = tags[i];
                 const newPos: number = tag.readToken(state);
@@ -75,6 +76,7 @@ export async function read(stream: Readable, options: ReadOptions): Promise<Stat
                 state.tag.readContent(state, state.buffer[state.pos]);
             }
         }
+        state.prevSymbolCode = symbolCode;
         state.pos++;
         await refreshBuffer();
     }
