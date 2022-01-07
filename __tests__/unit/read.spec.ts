@@ -3,15 +3,17 @@ import {read} from '../../src';
 
 declare const require: (path: string) => any;
 
+const FIXTURES = [
+    ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
+    ['ING-1', 'ing-1.mta', 'ing-1.json'],
+    ['ING-2', 'ing-2.mta', 'ing-2.json'],
+    ['BASE-1', 'base-1.mta', 'base-1.json'],
+    ['BASE-2', 'base-2.mta', 'base-2.json'],
+    ['BASE-3', 'base-3.mta', 'base-3.json']
+];
+
 describe('#read', () => {
-    describe.each([
-        ['ABN AMRO', 'abn-amro-1.STA', 'abn-amro-1.json'],
-        ['ING-1', 'ing-1.mta', 'ing-1.json'],
-        ['ING-2', 'ing-2.mta', 'ing-2.json'],
-        ['BASE-1', 'base-1.mta', 'base-1.json'],
-        ['BASE-2', 'base-2.mta', 'base-2.json'],
-        ['BASE-3', 'base-3.mta', 'base-3.json']
-    ])('Provider: %s', (_, mt940FileName, resultFileName) => {
+    describe.each(FIXTURES)('Provider: %s', (_, mt940FileName, resultFileName) => {
         describe.each(['Buffer', 'ArrayBuffer', 'ReadStream'])('%s', (type) => {
             it('should parse the file content', async () => {
                 const data = getTestData(type as any, mt940FileName);
@@ -21,6 +23,13 @@ describe('#read', () => {
             });
         });
     });
+});
+
+describe('#readAsync', () => {
+    describe.each(FIXTURES)('Provider: %s', (_, mt940FileName, resultFileName) => {
+        it("should emit events for each statement in the mt940", () => {
+        })
+    })
 });
 
 function toArrayBuffer(buffer: Buffer) {
