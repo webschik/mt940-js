@@ -16,16 +16,16 @@ export async function read(stream: Readable, options: ReadOptions): Promise<Stat
         statementIndex: -1,
         transactionIndex: -1,
         statements: [],
-        buffer: Buffer.from([]),
+        data: Buffer.alloc(0),
         prevSymbolCode: -1
     };
-    const refreshBuffer = createRefreshBuffer(stream, state);
 
+    const refreshBuffer = createRefreshBuffer(stream, state);
     await refreshBuffer();
-    while (state.pos < state.buffer.length) {
-        const symbolCode: number = state.buffer[state.pos];
+    while (state.pos < state.data.length) {
+        await refreshBuffer();
+        const symbolCode: number = state.data[state.pos];
         let skipReading: boolean = false;
-        // check if it's a tag
         if (symbolCode === colonSymbolCode && (state.pos === 0 || state.prevSymbolCode === newLineSymbolCode)) {
             for (const tag of tags) {
                 const newPos: number = tag.readToken(state);
@@ -49,12 +49,11 @@ export async function read(stream: Readable, options: ReadOptions): Promise<Stat
                 state.tagContentEnd++;
             }
             if (typeof state.tag.readContent === 'function') {
-                state.tag.readContent(state, state.buffer[state.pos]);
+                state.tag.readContent(state, state.data[state.pos]);
             }
         }
         state.prevSymbolCode = symbolCode;
         state.pos++;
-        await refreshBuffer();
     }
     closeCurrentTag(state, options);
 

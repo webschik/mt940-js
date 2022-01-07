@@ -21,7 +21,7 @@ export interface State {
     tagContentStart?: number;
     tagContentEnd?: number;
     statements: Statement[];
-    buffer: Buffer;
+    data: Buffer;
     prevSymbolCode: number;
 }
 
@@ -75,7 +75,8 @@ export async function read(input: InputType, options?: ReadOptions): Promise<Sta
             ...options
         });
     } catch (e) {
-        return Promise.reject(new Error(invalidInputMessage));
+        throw e;
+        // return Promise.reject(new Error(invalidInputMessage));
     }
 }
 

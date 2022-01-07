@@ -15,7 +15,7 @@ const forwardAvailableBalance: BalanceInfoTag = {
     ...openingBalanceTag,
 
     readToken(state: State) {
-        if (!compareArrays(token, 0, state.buffer, state.pos, tokenLength)) {
+        if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
 

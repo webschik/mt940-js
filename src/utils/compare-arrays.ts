@@ -6,6 +6,12 @@ export default function compareArrays(
     length: number
 ): boolean {
     for (let i = 0; i < length; i++) {
+        if (firstArrayOffset + i > firstArray.length) {
+            throw new Error(`${i} is out of bounds for ${firstArray}`);
+        }
+        if (secondArrayOffset + i > secondArray.length) {
+            throw new Error(`${i} is out of bounds for ${secondArray}`);
+        }
         if (firstArray[firstArrayOffset + i] !== secondArray[secondArrayOffset + i]) {
             return false;
         }

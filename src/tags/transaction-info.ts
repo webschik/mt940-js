@@ -38,7 +38,7 @@ export const token: Uint8Array = new Uint8Array([colonSymbolCode, 54, 49, colonS
 const tokenLength: number = token.length;
 const transactionInfoTag: Tag = {
     readToken(state: State) {
-        if (!compareArrays(token, 0, state.buffer, state.pos, tokenLength)) {
+        if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
 
@@ -78,7 +78,7 @@ const transactionInfoTag: Tag = {
             return;
         }
 
-        const content: string = bufferToText(state.buffer, state.tagContentStart, state.tagContentEnd);
+        const content: string = bufferToText(state.data, state.tagContentStart, state.tagContentEnd);
         const [
             ,
             valueDateYear,

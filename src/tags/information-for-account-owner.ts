@@ -13,7 +13,7 @@ const informationTag: Tag = {
     multiline: true,
 
     readToken(state: State) {
-        if (!compareArrays(token, 0, state.buffer, state.pos, tokenLength)) {
+        if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
 
@@ -33,7 +33,7 @@ const informationTag: Tag = {
 
         // filter denied symbols
         for (let i: number = tagContentStart; i < tagContentEnd; i++) {
-            const symbolCode: number = state.buffer[i];
+            const symbolCode: number = state.data[i];
 
             if (
                 // remove \r & \n

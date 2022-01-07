@@ -23,8 +23,8 @@ interface StatementNumberTag extends Tag {
 
 const statementNumberTag: StatementNumberTag = {
     readToken(state: State) {
-        const isToken1: boolean = compareArrays(token1, 0, state.buffer, state.pos, token1Length);
-        const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.buffer, state.pos, token2Length);
+        const isToken1: boolean = compareArrays(token1, 0, state.data, state.pos, token1Length);
+        const isToken2: boolean = !isToken1 && compareArrays(token2, 0, state.data, state.pos, token2Length);
 
         if (!isToken1 && !isToken2) {
             return 0;
@@ -47,7 +47,7 @@ const statementNumberTag: StatementNumberTag = {
             return;
         }
 
-        statement.number = bufferToText(state.buffer, state.tagContentStart, this.slashPos || state.tagContentEnd);
+        statement.number = bufferToText(state.data, state.tagContentStart, this.slashPos || state.tagContentEnd);
     }
 };
 

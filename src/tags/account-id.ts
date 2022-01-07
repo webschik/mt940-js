@@ -11,7 +11,7 @@ const token: Uint8Array = new Uint8Array([colonSymbolCode, 50, 53, colonSymbolCo
 const tokenLength: number = token.length;
 const accountIdTag: Tag = {
     readToken(state: State) {
-        if (!compareArrays(token, 0, state.buffer, state.pos, tokenLength)) {
+        if (!compareArrays(token, 0, state.data, state.pos, tokenLength)) {
             return 0;
         }
 
@@ -25,7 +25,7 @@ const accountIdTag: Tag = {
             return;
         }
 
-        statement.accountId = bufferToText(state.buffer, state.tagContentStart, state.tagContentEnd);
+        statement.accountId = bufferToText(state.data, state.tagContentStart, state.tagContentEnd);
     }
 };
 
