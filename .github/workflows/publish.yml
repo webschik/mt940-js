@@ -17,6 +17,7 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
           cache: 'npm'
+      - run: npm install
       - run: npm run lint
       - run: npm run format
       - run: npm run ci
