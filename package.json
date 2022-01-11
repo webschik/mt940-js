@@ -16,7 +16,7 @@
   },
   "scripts": {
     "ci": "RUN_PERFORMANCE_TESTS=1 jest",
-    "prepare": "tsc",
+    "prepare": "npm run build",
     "test": "jest",
     "test:performance": "RUN_PERFORMANCE_TESTS=1 jest",
     "snapshot:update": "RUN_PERFORMANCE_TESTS=1 WRITE_SNAPSHOT=1 jest",
@@ -24,7 +24,7 @@
     "lint:fix": "tslint --fix \"src/**/*.ts\" \"__tests__/unit/**/*.ts\"",
     "format": "prettier --check '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
     "format:fix": "prettier --write '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
-    "build": "npm run format && npm run lint && rm -rf lib && tsc"
+    "build": "rm -rf lib && tsc"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
