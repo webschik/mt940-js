@@ -1,6 +1,6 @@
 {
-  "name": "mt940-js",
-  "version": "2.0.0",
+  "name": "@jewell-lgtm/mt940-js",
+  "version": "2.0.0-alpha.1",
   "description": "A Node.js library for working with MT940 format",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,12 +15,18 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "ci": "RUN_PERFORMANCE_TESTS=1 jest",
     "test": "jest",
     "test:performance": "RUN_PERFORMANCE_TESTS=1 jest",
     "snapshot:update": "RUN_PERFORMANCE_TESTS=1 WRITE_SNAPSHOT=1 jest",
     "lint": "tslint \"src/**/*.ts\" \"__tests__/unit/**/*.ts\"",
-    "format": "prettier --write '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
+    "lint:fix": "tslint --fix \"src/**/*.ts\" \"__tests__/unit/**/*.ts\"",
+    "format": "prettier '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
+    "format:fix": "prettier --write '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
     "build": "npm run format && npm run lint && rm -rf lib && tsc"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
