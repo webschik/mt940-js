@@ -1,26 +1,40 @@
-name: Publish package to GitHub Packages
+name: Release & Publish
+
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+  publish:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup .npmrc file to publish to Github
+        uses: actions/setup-node@v2
         with:
           node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
           cache: 'npm'
-      - run: npm install
-      - run: npm run lint
-      - run: npm run format
-      - run: npm run ci
-      - run: npm publish
+      - name: Install modules
+        run: npm install
+      - name: Publish to GitHub Packages
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

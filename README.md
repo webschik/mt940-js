@@ -34,7 +34,7 @@ function getTransactionId(transaction, index) {
 ### Node.js environment
 
 ````js
-import * as mt940 from 'mt940-js';
+import * as mt940 from '@jewell-lgtm/mt940-js';
 import fs from 'fs';
 
 const stream = mt940.readStream(fs.createReadStream("mt940.sta"))
@@ -59,7 +59,7 @@ for await (const statement of stream) {
 ````
 
 ````js
-import * as mt940 from 'mt940-js';
+import * as mt940 from '@jewell-lgtm/mt940-js';
 
 function onFileSelected(file) {
     const reader = new FileReader();
@@ -76,7 +76,7 @@ function onFileSelected(file) {
 #### Reading a remote file
 
 ````js
-import * as mt940 from 'mt940-js';
+import * as mt940 from '@jewell-lgtm/mt940-js';
 
 fetch('/url/to/mt940/file')
     .then((response) => response.arrayBuffer())
