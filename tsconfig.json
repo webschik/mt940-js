@@ -17,6 +17,7 @@
     ]
   },
   "exclude": [
+    "lib",
     "node_modules",
     "__tests__"
   ]
