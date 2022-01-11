@@ -10,6 +10,8 @@ import statementNumber from './tags/statement-number';
 import transactionInfo from './tags/transaction-info';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import {colonSymbolCode, newLineSymbolCode, returnSymbolCode} from './tokens';
+import {Readable, Transform} from 'stream';
+import {splitToStatements} from './utils/split-to-statements';
 
 const tags: Tag[] = [
     transactionReferenceNumber,
@@ -31,7 +33,23 @@ function closeCurrentTag(state: State, options: ReadOptions) {
     }
 }
 
-export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<Statement[]> {
+function formatChunk(options: ReadOptions) {
+    return new Transform({
+        objectMode: true,
+        transform(chunk, _, callback) {
+            for (const statement of readChunk(chunk, options)) {
+                this.push(statement);
+            }
+            callback();
+        }
+    });
+}
+
+export function read(data: Readable, options: ReadOptions): Readable {
+    return data.pipe(splitToStatements()).pipe(formatChunk(options));
+}
+
+export function readChunk(data: Buffer, options: ReadOptions): Statement[] {
     const length: number = data.length;
     const state: State = {
         pos: 0,
@@ -83,5 +101,5 @@ export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<S
 
     closeCurrentTag(state, options);
 
-    return Promise.resolve(state.statements);
+    return state.statements;
 }

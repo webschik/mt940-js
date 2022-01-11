@@ -1,0 +1,185 @@
+[
+    {
+        "transactions": [
+            {
+                "id": "d0401c0697e097897df85a4463760d27",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 5000,
+                "valueDate": "2002-03-17",
+                "entryDate": "2002-03-20",
+                "customerReference": "68790452",
+                "bankReference": ""
+            },
+            {
+                "id": "23d3b2456afc91c4efd5e389254d6fa8",
+                "code": "NCHG",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            }
+        ],
+        "referenceNumber": "STARTUMS",
+        "accountId": "1222333444",
+        "openingBalance": {
+            "isCredit": true,
+            "date": "2002-03-15",
+            "currency": "DEM",
+            "value": 0
+        },
+        "number": "1",
+        "closingBalance": {
+            "isCredit": true,
+            "date": "2002-03-15",
+            "currency": "DEM",
+            "value": 105000
+        }
+    },
+    {
+        "transactions": [
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "22291c3872e333051c813aa7d34b2816",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 20000,
+                "valueDate": "2002-03-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            }
+        ],
+        "referenceNumber": "STARTUMS",
+        "accountId": "1222333444",
+        "openingBalance": {
+            "isCredit": true,
+            "date": "2002-03-15",
+            "currency": "DEM",
+            "value": 105000
+        },
+        "number": "1",
+        "closingBalance": {
+            "isCredit": true,
+            "date": "2002-03-15",
+            "currency": "DEM",
+            "value": 145000
+        }
+    },
+    {
+        "transactions": [
+            {
+                "id": "5134c8e053ec660eacba8802475d0fd5",
+                "code": "S051",
+                "fundsCode": "M",
+                "isCredit": false,
+                "isExpense": true,
+                "currency": "DEM",
+                "description": "",
+                "amount": 50000,
+                "valueDate": "2002-03-24",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            }
+        ],
+        "referenceNumber": "STARTUMS",
+        "accountId": "3346780111",
+        "openingBalance": {
+            "isCredit": true,
+            "date": "2002-03-24",
+            "currency": "DEM",
+            "value": 145000
+        },
+        "number": "2",
+        "closingBalance": {
+            "isCredit": true,
+            "date": "2002-03-24",
+            "currency": "DEM",
+            "value": 95000
+        }
+    }
+]

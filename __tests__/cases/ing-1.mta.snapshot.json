@@ -1,0 +1,76 @@
+[
+    {
+        "transactions": [
+            {
+                "id": "2b33a41e4439d4207fe6fc77b2928252",
+                "code": "N078",
+                "fundsCode": "",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "EUR",
+                "description": "0111111111 V. DE JONG KERKSTRAAT 1154 1234 BWENSCHEDE BET.KENM. 1004510036716378 3305330802AFLOSSINGSTERMIJN 188616 / 1E TERMIJN",
+                "amount": 0.56,
+                "valueDate": "2010-07-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "1f4d07fd1738faad66ef84eb489b7185",
+                "code": "N077",
+                "fundsCode": "",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "EUR",
+                "description": "0111111111 CUSTOMER NL SPOEDBETALINGGE2009120212345RE091202-3737 /RFB/NL-FMI-021209 NL-FMI-021209VOORSCHOTCOMMISSIE",
+                "amount": 10.45,
+                "valueDate": "2010-07-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            },
+            {
+                "id": "10afa5eb66016d5052921a24c394c769",
+                "code": "N029",
+                "fundsCode": "",
+                "isCredit": false,
+                "isExpense": true,
+                "currency": "EUR",
+                "description": "VERZAMELBETALING BATCH-ID: 012345 TOTAAL 198POSTEN",
+                "amount": 10000.99,
+                "valueDate": "2010-07-22",
+                "entryDate": "",
+                "customerReference": "",
+                "bankReference": ""
+            }
+        ],
+        "referenceNumber": "INGEB",
+        "accountId": "0111111111",
+        "openingBalance": {
+            "isCredit": true,
+            "date": "2010-07-22",
+            "currency": "EUR",
+            "value": 44.89
+        },
+        "number": "100",
+        "closingBalance": {
+            "isCredit": false,
+            "date": "2010-07-23",
+            "currency": "EUR",
+            "value": 9945.09
+        },
+        "closingAvailableBalance": {
+            "isCredit": false,
+            "date": "2010-07-23",
+            "currency": "EUR",
+            "value": 9945.09
+        },
+        "forwardAvailableBalance": {
+            "isCredit": false,
+            "date": "2010-07-26",
+            "currency": "EUR",
+            "value": 9945.09
+        },
+        "additionalInformation": "D000001C000002D10000,99C11,01ING TESTREKENINGXXX"
+    }
+]
