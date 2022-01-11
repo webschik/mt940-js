@@ -1,7 +1,9 @@
 name: Publish package to GitHub Packages
 on:
-  release:
-    types: [ created, edited, published ]
+  push:
+    branches:
+      - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
