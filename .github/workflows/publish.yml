@@ -1,4 +1,4 @@
-name: Release & Publish
+name: Release & Publish when a new tag (e.g. v1.0.0) is pushed
 
 on:
   push:
@@ -29,10 +29,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12.x'
-          cache: 'npm'
           registry-url: https://registry.npmjs.org/
+          cache: 'npm'
       - name: Install modules
         run: npm install
-      - run: npm publish --access public
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
