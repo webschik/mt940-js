@@ -11,7 +11,7 @@ import transactionInfo from './tags/transaction-info';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import {colonSymbolCode, newLineSymbolCode, returnSymbolCode} from './tokens';
 import {Readable, Transform} from 'stream';
-import {splitToStatements} from './utils/split-to-statements';
+import {splitBySeparator} from './utils/split-by-separator';
 
 const tags: Tag[] = [
     transactionReferenceNumber,
@@ -46,7 +46,7 @@ function formatChunk(options: ReadOptions) {
 }
 
 export function read(data: Readable, options: ReadOptions): Readable {
-    return data.pipe(splitToStatements()).pipe(formatChunk(options));
+    return data.pipe(splitBySeparator(options.statementSplitSequence)).pipe(formatChunk(options));
 }
 
 export function readChunk(data: Buffer, options: ReadOptions): Statement[] {

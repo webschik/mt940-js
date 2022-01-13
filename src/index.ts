@@ -61,10 +61,16 @@ export interface Statement {
 }
 
 export interface ReadOptions {
+    statementSplitSequence: string;
+
     getTransactionId(transaction: Transaction, index: number): string;
 }
 
+const TRANSACTION_REFERENCE_NUMBER = ':20:' as const;
+
 const defaultOptions: ReadOptions = {
+    statementSplitSequence: TRANSACTION_REFERENCE_NUMBER,
+
     getTransactionId(transaction: Transaction) {
         return md5(JSON.stringify(transaction));
     }
