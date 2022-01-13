@@ -26,15 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .npmrc file to publish to Github
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: '12.x'
-          registry-url: 'https://npm.pkg.github.com'
           cache: 'npm'
+          registry-url: https://registry.npmjs.org/
       - name: Install modules
         run: npm install
-      - name: Publish to GitHub Packages
-        run: npm publish
+      - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
