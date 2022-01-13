@@ -1,6 +1,6 @@
 {
   "name": "@jewell-lgtm/mt940-js",
-  "version": "2.0.0-alpha.10",
+  "version": "2.0.0-alpha.14",
   "description": "A Node.js library for working with MT940 format",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -25,9 +25,6 @@
     "format": "prettier --check '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
     "format:fix": "prettier --write '{src,__tests__/unit}/**/*.{js,ts}' && prettier --write '*.{js,ts}'",
     "build": "rm -rf lib && tsc"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

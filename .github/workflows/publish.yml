@@ -2,12 +2,8 @@ name: Release & Publish when a new tag (e.g. v1.0.0) is pushed
 
 on:
   push:
-    branches:
-      - master
-#on:
-#  push:
-#    tags:
-#      - 'v*'
+    tags:
+      - 'v*'
 
 jobs:
   release:
