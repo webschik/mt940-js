@@ -1,0 +1,35 @@
+[
+    {
+        "transactions": [
+            {
+                "id": "73428377c7ce19b7e3f072f719435274",
+                "code": "N426",
+                "fundsCode": "",
+                "isCredit": true,
+                "isExpense": true,
+                "currency": "EUR",
+                "description": "/TRTP/SEPA OVERBOEKING/IBAN/NL****/BIC/ABNA***/NAME/TT TEST/REMI/TRANSFER OWN MONEY/EREF/NOTPROVIDED",
+                "amount": 5.41,
+                "valueDate": "2011-07-14",
+                "entryDate": "2011-07-15",
+                "customerReference": "",
+                "bankReference": ""
+            }
+        ],
+        "referenceNumber": "ABN AMRO BANK NV",
+        "accountId": "123456789",
+        "openingBalance": {
+            "isCredit": true,
+            "date": "2011-07-13",
+            "currency": "EUR",
+            "value": 3148.49
+        },
+        "number": "12345",
+        "closingBalance": {
+            "isCredit": true,
+            "date": "2011-07-13",
+            "currency": "EUR",
+            "value": 2940.39
+        }
+    }
+]
