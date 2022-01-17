@@ -1,7 +1,7 @@
 import md5 from './utils/md5';
 import * as parser from './parser';
 
-const invalidInputMessage: string = 'invalid input';
+const invalidInputMessage = 'invalid input';
 
 export interface Tag {
     multiline?: boolean;

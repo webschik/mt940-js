@@ -102,7 +102,7 @@ function md51(input: string): number[] {
     const state: number[] = [1732584193, -271733879, -1732584194, 271733878];
     const tail: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let len = input.length;
-    let i: number = 64;
+    let i = 64;
 
     for (; i <= len; i += 64) {
         md5Cycle(state, getMd5Blocks(input.substring(i - 64, i)));
@@ -161,7 +161,7 @@ function getMd5Blocks(str: string): number[] {
 const hexChars: string[] = '0123456789abcdef'.split('');
 
 function rhex(value: number): string {
-    let result: string = '';
+    let result = '';
 
     for (let j = 0; j < 4; j++) {
         result += hexChars[(value >> (j * 8 + 4)) & 0x0f] + hexChars[(value >> (j * 8)) & 0x0f];
@@ -171,7 +171,7 @@ function rhex(value: number): string {
 }
 
 function hex(state: number[]): string {
-    let result: string = '';
+    let result = '';
     const {length} = state;
 
     for (let i = 0; i < length; i++) {

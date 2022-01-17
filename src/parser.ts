@@ -43,7 +43,7 @@ export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<S
 
     while (state.pos < length) {
         const symbolCode: number = data[state.pos];
-        let skipReading: boolean = false;
+        let skipReading = false;
 
         // check if it's a tag
         if (symbolCode === colonSymbolCode && (state.pos === 0 || data[state.pos - 1] === newLineSymbolCode)) {

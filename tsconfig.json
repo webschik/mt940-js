@@ -1,23 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "outDir": "lib",
-    "rootDir": "src",
-    "strict": true,
-    "declaration": true,
-    "noImplicitAny": true,
-    "noUnusedParameters": true,
-    "noEmitHelpers": true,
-    "importHelpers": true,
-    "noUnusedLocals": true,
-    "module": "commonjs",
-    "lib": [
-      "esnext",
-      "dom"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "__tests__"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "lib",
+        "rootDir": "src",
+        "strict": true,
+        "declaration": true,
+        "noImplicitAny": true,
+        "noUnusedParameters": true,
+        "noEmitHelpers": true,
+        "importHelpers": true,
+        "noUnusedLocals": true,
+        "module": "commonjs",
+        "lib": ["esnext", "dom"]
+    },
+    "exclude": ["node_modules", "__tests__"]
 }

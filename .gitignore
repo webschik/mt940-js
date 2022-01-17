@@ -3,5 +3,4 @@
 coverage
 node_modules
 lib
-.coveralls.yml
-package-lock.json
+.eslintcache
