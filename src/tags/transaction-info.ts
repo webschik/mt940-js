@@ -3,7 +3,7 @@ import {bigCSymbolCode, colonSymbolCode, dotSymbolCode} from '../tokens';
 import bufferToText from '../utils/buffer-to-text';
 import compareArrays from '../utils/compare-arrays';
 
-const transactionInfoPattern: RegExp = new RegExp(
+const transactionInfoPattern = new RegExp(
     [
         '^\\s*',
         '([0-9]{2})', // YY
@@ -19,7 +19,7 @@ const transactionInfoPattern: RegExp = new RegExp(
         '(//[A-Z0-9]{16})?' // Bank reference
     ].join('')
 );
-const commaPattern: RegExp = /,/;
+const commaPattern = /,/;
 const dotSymbol: string = String.fromCharCode(dotSymbolCode);
 const incomeTransactionCodes: string[] = [
     // ABN AMRO bank

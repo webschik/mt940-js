@@ -29,7 +29,7 @@ const informationTag: Tag = {
 
         const {tagContentStart = 0, tagContentEnd = 0} = state;
         const description: number[] = [];
-        let descriptionLength: number = 0;
+        let descriptionLength = 0;
 
         // filter denied symbols
         for (let i: number = tagContentStart; i < tagContentEnd; i++) {

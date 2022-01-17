@@ -2,57 +2,57 @@
  * @description ":"
  * @type {number}
  */
-export const colonSymbolCode: number = 58;
+export const colonSymbolCode = 58;
 
 /**
  * @description "\n"
  * @type {number}
  */
-export const newLineSymbolCode: number = 10;
+export const newLineSymbolCode = 10;
 
 /**
  * @description "\r"
  * @type {number}
  */
-export const returnSymbolCode: number = 13;
+export const returnSymbolCode = 13;
 
 /**
  * @description "/"
  * @type {number}
  */
-export const slashSymbolCode: number = 47;
+export const slashSymbolCode = 47;
 
 /**
  * @description "0"
  * @type {number}
  */
-export const zeroSymbolCode: number = 48;
+export const zeroSymbolCode = 48;
 
 /**
  * @description "9"
  * @type {number}
  */
-export const nineSymbolCode: number = 57;
+export const nineSymbolCode = 57;
 
 /**
  * @description "."
  * @type {number}
  */
-export const dotSymbolCode: number = 46;
+export const dotSymbolCode = 46;
 
 /**
  * @description ","
  * @type {number}
  */
-export const commaSymbolCode: number = 44;
+export const commaSymbolCode = 44;
 
 /**
  * @description "C"
  * @type {number}
  */
-export const bigCSymbolCode: number = 67;
+export const bigCSymbolCode = 67;
 /**
  * @description Space symbol, " "
  * @type {number}
  */
-export const spaceSymbolCode: number = 32;
+export const spaceSymbolCode = 32;
