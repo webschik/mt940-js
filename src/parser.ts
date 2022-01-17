@@ -1,4 +1,4 @@
-import {ReadOptions, State, Statement, Tag} from './index';
+import {Options, ReadOptions, State, Statement, Tag} from './index';
 import accountId from './tags/account-id';
 import closingAvailableBalance from './tags/closing-available-balance';
 import closingBalance from './tags/closing-balance';
@@ -10,6 +10,9 @@ import statementNumber from './tags/statement-number';
 import transactionInfo from './tags/transaction-info';
 import transactionReferenceNumber from './tags/transaction-reference-number';
 import {colonSymbolCode, newLineSymbolCode, returnSymbolCode} from './tokens';
+import {Readable, Transform} from 'stream';
+import {splitBySeparator} from './utils/split-by-separator';
+import {Buffer} from "buffer";
 
 const tags: Tag[] = [
     transactionReferenceNumber,
@@ -31,7 +34,23 @@ function closeCurrentTag(state: State, options: ReadOptions) {
     }
 }
 
-export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<Statement[]> {
+function formatChunk(options: ReadOptions) {
+    return new Transform({
+        objectMode: true,
+        transform(chunk, _, callback) {
+            for (const statement of readChunk(chunk, options)) {
+                this.push(statement);
+            }
+            callback();
+        }
+    });
+}
+
+export function read(data: Readable, options: Options): Readable {
+    return data.pipe(splitBySeparator(options.statementSplitSequence)).pipe(formatChunk(options));
+}
+
+export function readChunk(data: Buffer, options: ReadOptions): Statement[] {
     const length: number = data.length;
     const state: State = {
         pos: 0,
@@ -83,5 +102,18 @@ export function read(data: Uint8Array | Buffer, options: ReadOptions): Promise<S
 
     closeCurrentTag(state, options);
 
-    return Promise.resolve(state.statements);
+    return state.statements;
+}
+
+
+export function getData(input: ArrayBuffer | Buffer | unknown): Buffer {
+    if (typeof Buffer !== 'undefined' && input instanceof Buffer) {
+        return input;
+    }
+
+    if (typeof ArrayBuffer !== 'undefined' && input instanceof ArrayBuffer) {
+        return Buffer.from(input);
+    }
+
+    throw new Error('invalid input');
 }
